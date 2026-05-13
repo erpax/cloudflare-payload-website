@@ -67,25 +67,30 @@ function getHeadings(source: string): Heading[] {
   })
 }
 
+// [turbopack] Statically anchor to `node_modules/payload/docs` under cwd
+// so Turbopack's NFT scanner can scope the trace. The previous version
+// used `path.resolve(process.env.DOCS_DIR_V*)` which is unbounded — any
+// path on disk — causing Turbopack to fall back to "trace everything"
+// (13k+ files). The env-driven override is dropped on purpose; symlink
+// `node_modules/payload/docs` to your local checkout if you need to point
+// it elsewhere in dev.
+const LOCAL_DOCS_BASE = 'node_modules/payload/docs'
+
 function getLocalDocsPath(): string {
-  const nodeModuleDocsPath = path.join(process.cwd(), './node_modules/payload/docs')
-  const docDirs = {
-    v2: process.env.DOCS_DIR_V2 ? path.resolve(process.env.DOCS_DIR_V2) : nodeModuleDocsPath,
-    v3: process.env.DOCS_DIR_V3 ? path.resolve(process.env.DOCS_DIR_V3) : nodeModuleDocsPath,
-  }
-  return docDirs?.[ref] || nodeModuleDocsPath
+  return path.join(process.cwd(), LOCAL_DOCS_BASE)
 }
 
-async function getFilenames({ topicSlug }): Promise<string[]> {
+async function getFilenames({ topicSlug }: { topicSlug: string }): Promise<string[]> {
   if (source === 'github') {
     try {
-      const docs = await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
+      const docs = (await fetch(`${githubAPI}/contents/docs/${topicSlug}?ref=${ref}`, {
         headers,
-      }).then((res) => res.json())
+      }).then((res) => res.json())) as Array<{ name: string }> | { message?: string }
 
-      if (docs && Array.isArray(docs)) {
+      if (Array.isArray(docs)) {
         return docs.map((doc) => doc.name)
-      } else if (docs && typeof docs === 'object' && 'message' in docs) {
+      }
+      if (docs && typeof docs === 'object' && 'message' in docs) {
         console.error(`Error fetching ${topicSlug} for ref: ${ref}. Reason: ${docs.message}`)
       }
       return []
@@ -93,7 +98,7 @@ async function getFilenames({ topicSlug }): Promise<string[]> {
       return []
     }
   } else {
-    const filePath = path.join(getLocalDocsPath(), `./${topicSlug}`)
+    const filePath = path.join(process.cwd(), LOCAL_DOCS_BASE, topicSlug)
     if (!fs.existsSync(filePath)) {
       return []
     }
@@ -101,14 +106,20 @@ async function getFilenames({ topicSlug }): Promise<string[]> {
   }
 }
 
-async function getDocMatter({ docFilename, topicSlug }) {
+async function getDocMatter({
+  docFilename,
+  topicSlug,
+}: {
+  docFilename: string
+  topicSlug: string
+}) {
   if (source === 'github') {
-    const json: GithubAPIResponse = await fetch(
+    const json = (await fetch(
       `${githubAPI}/contents/docs/${topicSlug}/${docFilename}?ref=${ref}`,
       {
         headers,
       },
-    ).then((res) => res.json())
+    ).then((res) => res.json())) as GithubAPIResponse
 
     if (!json.content) return null
 
@@ -119,7 +130,11 @@ async function getDocMatter({ docFilename, topicSlug }) {
       .replace(/https:\/\/payloadcms.com\/docs\//g, '../')
     return parsedDoc
   } else {
-    const rawDoc = fs.readFileSync(`${getLocalDocsPath()}/${topicSlug}/${docFilename}`, 'utf8')
+    // Statically scoped under node_modules/payload/docs — see comment above.
+    const rawDoc = fs.readFileSync(
+      path.join(process.cwd(), LOCAL_DOCS_BASE, topicSlug, docFilename),
+      'utf8',
+    )
     if (rawDoc) {
       return matter(rawDoc)
     }

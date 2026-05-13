@@ -11,6 +11,10 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const Pages: CollectionConfig = {
   slug: 'pages',
+  labels: {
+    singular: { en: 'Page', bg: 'Страница' },
+    plural: { en: 'Pages', bg: 'Страници' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -44,14 +48,14 @@ export const Pages: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
-      label: 'No Index',
+      label: ({ t }) => t('website:collections:Pages:noindex:label'),
     },
     {
       type: 'tabs',
       tabs: [
         {
           fields: [hero],
-          label: 'Hero',
+          label: ({ t }) => t('website:collections:Pages:line54:label'),
         },
         {
           fields: [
@@ -89,7 +93,7 @@ export const Pages: CollectionConfig = {
               required: true,
             },
           ],
-          label: 'Content',
+          label: ({ t }) => t('website:collections:Pages:line92:label'),
         },
       ],
     },

@@ -7,6 +7,7 @@ import link from '../fields/link'
 
 export const MainMenu: GlobalConfig = {
   slug: 'main-menu',
+  label: { en: 'Main Menu', bg: 'Главно меню' },
   access: {
     read: () => true,
     update: isAdmin,
@@ -50,7 +51,7 @@ export const MainMenu: GlobalConfig = {
               disableLabel: true,
             }),
           ],
-          label: 'Direct Link',
+          label: ({ t }) => t('website:globals:MainMenu:line53:label'),
         },
         {
           type: 'collapsible',
@@ -89,15 +90,15 @@ export const MainMenu: GlobalConfig = {
                   defaultValue: 'default',
                   options: [
                     {
-                      label: 'Default',
+                      label: ({ t }) => t('website:globals:MainMenu:style:label'),
                       value: 'default',
                     },
                     {
-                      label: 'Featured',
+                      label: ({ t }) => t('website:globals:MainMenu:style:label'),
                       value: 'featured',
                     },
                     {
-                      label: 'List',
+                      label: ({ t }) => t('website:globals:MainMenu:line100:label'),
                       value: 'list',
                     },
                   ],
@@ -178,16 +179,16 @@ export const MainMenu: GlobalConfig = {
               ],
             },
           ],
-          label: 'Dropdown Menu',
+          label: ({ t }) => t('website:globals:MainMenu:line181:label'),
         },
       ],
-      label: 'Main Menu Items',
+      label: ({ t }) => t('website:globals:MainMenu:line184:label'),
     },
     link({
       appearances: false,
       overrides: {
         name: 'menuCta',
-        label: 'Menu CTA Button',
+        label: ({ t }) => t('website:globals:MainMenu:menuCta:label'),
       },
     }),
   ],

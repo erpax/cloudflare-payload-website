@@ -64,6 +64,7 @@ export type SupportedTimezones =
 export interface Config {
   auth: {
     users: UserAuthOperations;
+    'payload-mcp-api-keys': PayloadMcpApiKeyAuthOperations;
   };
   blocks: {
     blogContent: BlogContent;
@@ -136,7 +137,12 @@ export interface Config {
     forms: Form;
     'form-submissions': FormSubmission;
     redirects: Redirect;
+    search: Search;
+    exports: Export;
+    imports: Import;
+    'payload-mcp-api-keys': PayloadMcpApiKey;
     'payload-kv': PayloadKv;
+    'payload-jobs': PayloadJob;
     'payload-locked-documents': PayloadLockedDocument;
     'payload-preferences': PayloadPreference;
     'payload-migrations': PayloadMigration;
@@ -167,7 +173,12 @@ export interface Config {
     forms: FormsSelect<false> | FormsSelect<true>;
     'form-submissions': FormSubmissionsSelect<false> | FormSubmissionsSelect<true>;
     redirects: RedirectsSelect<false> | RedirectsSelect<true>;
+    search: SearchSelect<false> | SearchSelect<true>;
+    exports: ExportsSelect<false> | ExportsSelect<true>;
+    imports: ImportsSelect<false> | ImportsSelect<true>;
+    'payload-mcp-api-keys': PayloadMcpApiKeysSelect<false> | PayloadMcpApiKeysSelect<true>;
     'payload-kv': PayloadKvSelect<false> | PayloadKvSelect<true>;
+    'payload-jobs': PayloadJobsSelect<false> | PayloadJobsSelect<true>;
     'payload-locked-documents': PayloadLockedDocumentsSelect<false> | PayloadLockedDocumentsSelect<true>;
     'payload-preferences': PayloadPreferencesSelect<false> | PayloadPreferencesSelect<true>;
     'payload-migrations': PayloadMigrationsSelect<false> | PayloadMigrationsSelect<true>;
@@ -192,19 +203,40 @@ export interface Config {
   };
   locale: null;
   widgets: {
-    'analytics-overview': AnalyticsOverviewWidget;
-    'top-pages': TopPagesWidget;
-    'active-users': ActiveUsersWidget;
-    'channel-groups': ChannelGroupsWidget;
     collections: CollectionsWidget;
   };
-  user: User;
+  user: User | PayloadMcpApiKey;
   jobs: {
-    tasks: unknown;
+    tasks: {
+      createCollectionExport: TaskCreateCollectionExport;
+      createCollectionImport: TaskCreateCollectionImport;
+      inline: {
+        input: unknown;
+        output: unknown;
+      };
+    };
     workflows: unknown;
   };
 }
 export interface UserAuthOperations {
+  forgotPassword: {
+    email: string;
+    password: string;
+  };
+  login: {
+    email: string;
+    password: string;
+  };
+  registerFirstUser: {
+    email: string;
+    password: string;
+  };
+  unlock: {
+    email: string;
+    password: string;
+  };
+}
+export interface PayloadMcpApiKeyAuthOperations {
   forgotPassword: {
     email: string;
     password: string;
@@ -229,9 +261,6 @@ export interface UserAuthOperations {
 export interface BlogContent {
   blogContentFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -262,9 +291,6 @@ export interface BlogContent {
 export interface BlogMarkdown {
   blogMarkdownFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -301,9 +327,6 @@ export interface MediaExampleBlock {
 export interface Media {
   id: number;
   alt: string;
-  /**
-   * Choose an upload to render if the visitor is using dark mode.
-   */
   darkModeFallback?: (number | null) | Media;
   updatedAt: string;
   createdAt: string;
@@ -324,9 +347,6 @@ export interface Media {
 export interface Callout {
   calloutFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -366,9 +386,6 @@ export interface Callout {
 export interface Cta {
   ctaFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -466,9 +483,6 @@ export interface Page {
       | 'gradient'
       | 'three';
     fullBackground?: boolean | null;
-    /**
-     * Leave blank for system default
-     */
     theme?: ('light' | 'dark') | null;
     enableBreadcrumbsBar?: boolean | null;
     breadcrumbsBarLinks?:
@@ -655,9 +669,6 @@ export interface Page {
             url?: string | null;
             label: string;
             customId?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
             appearance?: ('default' | 'primary' | 'secondary') | null;
           };
           id?: string | null;
@@ -810,9 +821,6 @@ export interface Post {
     | {
         bannerFields: {
           settings?: {
-            /**
-             * Leave blank for system default
-             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -860,9 +868,6 @@ export interface Post {
     website?: string | null;
   };
   publishedOn: string;
-  /**
-   * Paste this code into the docs to link to this post
-   */
   addToDocs?: string | null;
   meta?: {
     title?: string | null;
@@ -901,9 +906,6 @@ export interface Category {
 export interface Code {
   codeFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1035,9 +1037,6 @@ export interface Partner {
   website: string;
   email: string;
   slug: string;
-  /**
-   * Set to inactive to hide this partner from the directory.
-   */
   agency_status?: ('active' | 'inactive') | null;
   hubspotID?: string | null;
   logo: number | Media;
@@ -1047,9 +1046,6 @@ export interface Partner {
   featured?: boolean | null;
   topContributor?: boolean | null;
   content: {
-    /**
-     * 1600 x 800px recommended
-     */
     bannerImage: number | Media;
     overview: {
       root: {
@@ -1140,9 +1136,6 @@ export interface Partner {
 export interface Region {
   id: number;
   name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -1154,9 +1147,6 @@ export interface Region {
 export interface Specialty {
   id: number;
   name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -1168,9 +1158,6 @@ export interface Specialty {
 export interface Budget {
   id: number;
   name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -1182,9 +1169,6 @@ export interface Budget {
 export interface Industry {
   id: number;
   name: string;
-  /**
-   * Must contain only lowercase letters, numbers, hyphens, and underscores
-   */
   value: string;
   updatedAt: string;
   createdAt: string;
@@ -1196,9 +1180,6 @@ export interface Industry {
 export interface CardGrid {
   cardGridFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1217,9 +1198,6 @@ export interface CardGrid {
       };
       [k: string]: unknown;
     };
-    /**
-     * These links will be placed above the card grid as calls-to-action.
-     */
     links?:
       | {
           link: {
@@ -1285,9 +1263,6 @@ export interface CardGrid {
 export interface CaseStudyCards {
   caseStudyCardFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1325,9 +1300,6 @@ export interface CaseStudyCards {
 export interface CaseStudiesHighlight {
   caseStudiesHighlightFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1359,9 +1331,6 @@ export interface CaseStudiesHighlight {
 export interface CaseStudyParallax {
   caseStudyParallaxFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1376,9 +1345,6 @@ export interface CaseStudyParallax {
                 id?: string | null;
               }[]
             | null;
-          /**
-           * A label for the navigation tab at the bottom of the parallax
-           */
           tabLabel: string;
           caseStudy: number | CaseStudy;
           id?: string | null;
@@ -1396,19 +1362,10 @@ export interface CaseStudyParallax {
 export interface CodeFeature {
   codeFeatureFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
-    /**
-     * Check this box to force this block to have a dark background.
-     */
     forceDarkBackground?: boolean | null;
-    /**
-     * Choose how to align the content for this block.
-     */
     alignment?: ('contentCode' | 'codeContent') | null;
     heading?: string | null;
     richText: {
@@ -1514,9 +1471,6 @@ export interface CodeFeature {
 export interface Content {
   contentFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1594,9 +1548,6 @@ export interface Content {
 export interface ContentGrid {
   contentGridFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1674,9 +1625,6 @@ export interface ContentGrid {
 export interface FormBlock {
   formFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1877,6 +1825,9 @@ export interface Form {
    * Attached to submission button to track clicks
    */
   customID?: string | null;
+  /**
+   * Require a Cloudflare Turnstile challenge on this form. (Field name kept for migration compatibility.)
+   */
   requireRecaptcha?: boolean | null;
   updatedAt: string;
   createdAt: string;
@@ -1888,9 +1839,6 @@ export interface Form {
 export interface HoverCards {
   hoverCardsFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -1948,9 +1896,6 @@ export interface HoverCards {
 export interface HoverHighlights {
   hoverHighlightsFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2017,9 +1962,6 @@ export interface HoverHighlights {
 export interface LinkGrid {
   linkGridFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2060,9 +2002,6 @@ export interface LinkGrid {
 export interface LogoGrid {
   logoGridFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2120,9 +2059,6 @@ export interface LogoGrid {
 export interface MediaBlock {
   mediaBlockFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2155,19 +2091,10 @@ export interface MediaBlock {
 export interface MediaContent {
   mediaContentFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
-    /**
-     * Choose how to align the content for this block.
-     */
     alignment?: ('contentMedia' | 'mediaContent') | null;
-    /**
-     * Choose how wide the media should be.
-     */
     mediaWidth?: ('stretch' | 'fit') | null;
     richText: {
       root: {
@@ -2223,27 +2150,15 @@ export interface MediaContent {
 export interface MediaContentAccordion {
   mediaContentAccordionFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
-    /**
-     * Choose how to align the content for this block.
-     */
     alignment?: ('contentMedia' | 'mediaContent') | null;
     leader?: string | null;
     heading?: string | null;
     accordion?:
       | {
-          /**
-           * Choose how to position the media itself.
-           */
           position?: ('normal' | 'inset' | 'wide') | null;
-          /**
-           * Select the background you want to sit behind the media.
-           */
           background?: ('none' | 'gradient' | 'scanlines') | null;
           mediaLabel: string;
           mediaDescription: {
@@ -2298,9 +2213,6 @@ export interface MediaContentAccordion {
 export interface Pricing {
   pricingFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2356,9 +2268,6 @@ export interface Pricing {
 export interface ReusableContentBlock {
   reusableContentBlockFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2380,9 +2289,6 @@ export interface ReusableContent {
     | {
         bannerFields: {
           settings?: {
-            /**
-             * Leave blank for system default
-             */
             theme?: ('light' | 'dark') | null;
             background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
           };
@@ -2446,9 +2352,6 @@ export interface ReusableContent {
 export interface ComparisonTableType {
   comparisonTableFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2539,9 +2442,6 @@ export interface ExampleTabsBlock {
 export interface Slider {
   sliderFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2581,9 +2481,6 @@ export interface Slider {
             url?: string | null;
             label: string;
             customId?: string | null;
-            /**
-             * Choose how the link should be rendered.
-             */
             appearance?: ('default' | 'primary' | 'secondary') | null;
           };
           id?: string | null;
@@ -2629,9 +2526,6 @@ export interface Slider {
 export interface Statement {
   statementFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2693,9 +2587,6 @@ export interface Statement {
 export interface StepsBlock {
   stepsFields: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2730,9 +2621,6 @@ export interface StepsBlock {
 export interface StickyHighlights {
   stickyHighlightsFields?: {
     settings?: {
-      /**
-       * Leave blank for system default
-       */
       theme?: ('light' | 'dark') | null;
       background?: ('solid' | 'transparent' | 'gradientUp' | 'gradientDown') | null;
     };
@@ -2888,9 +2776,6 @@ export interface User {
   id: number;
   firstName: string;
   lastName: string;
-  /**
-   * Example: `payloadcms`
-   */
   twitter?: string | null;
   photo?: (number | null) | Media;
   roles: ('admin' | 'public')[];
@@ -2937,9 +2822,6 @@ export interface Link {
     url?: string | null;
     label: string;
     customId?: string | null;
-    /**
-     * Choose how the link should be rendered.
-     */
     appearance?: ('default' | 'primary' | 'secondary') | null;
   };
   id?: string | null;
@@ -2964,13 +2846,7 @@ export interface DownloadBlockType {
   downloads?:
     | {
         name: string;
-        /**
-         * The file to download
-         */
         file: number | Media;
-        /**
-         * Thumbnail for the download. Defaults to file for images
-         */
         thumbnail?: (number | null) | Media;
         thumbnailAppearance: 'cover' | 'contain';
         background: 'auto' | 'light' | 'dark';
@@ -3041,9 +2917,6 @@ export interface YoutubeBlock {
  * via the `definition` "PillBlock".
  */
 export interface PillBlock {
-  /**
-   * E.g., "1. DEFINE WORK" or "2. QUEUE JOBS"
-   */
   text: string;
   id?: string | null;
   blockName?: string | null;
@@ -3347,6 +3220,9 @@ export interface FormSubmission {
         id?: string | null;
       }[]
     | null;
+  /**
+   * Cloudflare Turnstile token. Field name kept for migration compatibility.
+   */
   recaptcha?: string | null;
   updatedAt: string;
   createdAt: string;
@@ -3379,6 +3255,140 @@ export interface Redirect {
   createdAt: string;
 }
 /**
+ * This is a collection of automatically created search results. These results are used by the global site search and will be updated automatically as documents in the CMS are created or updated.
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search".
+ */
+export interface Search {
+  id: number;
+  title?: string | null;
+  priority?: number | null;
+  doc:
+    | {
+        relationTo: 'community-help';
+        value: number | CommunityHelp;
+      }
+    | {
+        relationTo: 'docs';
+        value: number | Doc;
+      }
+    | {
+        relationTo: 'posts';
+        value: number | Post;
+      };
+  /**
+   * discord | github | docs | posts
+   */
+  platform?: string | null;
+  helpful?: boolean | null;
+  author?: string | null;
+  excerpt?: string | null;
+  updatedAt: string;
+  createdAt: string;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports".
+ */
+export interface Export {
+  id: number;
+  name?: string | null;
+  format: 'csv' | 'json';
+  limit?: number | null;
+  page?: number | null;
+  sort?: string | null;
+  sortOrder?: ('asc' | 'desc') | null;
+  drafts?: ('yes' | 'no') | null;
+  selectionToUse?: ('currentSelection' | 'currentFilters' | 'all') | null;
+  fields?: string[] | null;
+  collectionSlug: string;
+  where?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports".
+ */
+export interface Import {
+  id: number;
+  collectionSlug: string;
+  importMode?: ('create' | 'update' | 'upsert') | null;
+  matchField?: string | null;
+  status?: ('pending' | 'completed' | 'partial' | 'failed') | null;
+  summary?: {
+    imported?: number | null;
+    updated?: number | null;
+    total?: number | null;
+    issues?: number | null;
+    issueDetails?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  updatedAt: string;
+  createdAt: string;
+  url?: string | null;
+  thumbnailURL?: string | null;
+  filename?: string | null;
+  mimeType?: string | null;
+  filesize?: number | null;
+  width?: number | null;
+  height?: number | null;
+  focalX?: number | null;
+  focalY?: number | null;
+}
+/**
+ * API keys control which collections, resources, tools, and prompts MCP clients can access
+ *
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys".
+ */
+export interface PayloadMcpApiKey {
+  id: number;
+  /**
+   * The user that the API key is associated with.
+   */
+  user: number | User;
+  /**
+   * A useful label for the API key.
+   */
+  label?: string | null;
+  /**
+   * The purpose of the API key.
+   */
+  description?: string | null;
+  updatedAt: string;
+  createdAt: string;
+  enableAPIKey?: boolean | null;
+  apiKey?: string | null;
+  apiKeyIndex?: string | null;
+  collection: 'payload-mcp-api-keys';
+}
+/**
  * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv".
  */
@@ -3394,6 +3404,98 @@ export interface PayloadKv {
     | number
     | boolean
     | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs".
+ */
+export interface PayloadJob {
+  id: number;
+  /**
+   * Input data provided to the job
+   */
+  input?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  taskStatus?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  completedAt?: string | null;
+  totalTried?: number | null;
+  /**
+   * If hasError is true this job will not be retried
+   */
+  hasError?: boolean | null;
+  /**
+   * If hasError is true, this is the error that caused it
+   */
+  error?:
+    | {
+        [k: string]: unknown;
+      }
+    | unknown[]
+    | string
+    | number
+    | boolean
+    | null;
+  /**
+   * Task execution log
+   */
+  log?:
+    | {
+        executedAt: string;
+        completedAt: string;
+        taskSlug: 'inline' | 'createCollectionExport' | 'createCollectionImport';
+        taskID: string;
+        input?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        output?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        state: 'failed' | 'succeeded';
+        error?:
+          | {
+              [k: string]: unknown;
+            }
+          | unknown[]
+          | string
+          | number
+          | boolean
+          | null;
+        id?: string | null;
+      }[]
+    | null;
+  taskSlug?: ('inline' | 'createCollectionExport' | 'createCollectionImport') | null;
+  queue?: string | null;
+  waitUntil?: string | null;
+  processing?: boolean | null;
+  updatedAt: string;
+  createdAt: string;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -3469,12 +3571,25 @@ export interface PayloadLockedDocument {
     | ({
         relationTo: 'redirects';
         value: number | Redirect;
+      } | null)
+    | ({
+        relationTo: 'search';
+        value: number | Search;
+      } | null)
+    | ({
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
       } | null);
   globalSlug?: string | null;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   updatedAt: string;
   createdAt: string;
 }
@@ -3484,10 +3599,15 @@ export interface PayloadLockedDocument {
  */
 export interface PayloadPreference {
   id: number;
-  user: {
-    relationTo: 'users';
-    value: number | User;
-  };
+  user:
+    | {
+        relationTo: 'users';
+        value: number | User;
+      }
+    | {
+        relationTo: 'payload-mcp-api-keys';
+        value: number | PayloadMcpApiKey;
+      };
   key?: string | null;
   value?:
     | {
@@ -4161,11 +4281,129 @@ export interface RedirectsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "search_select".
+ */
+export interface SearchSelect<T extends boolean = true> {
+  title?: T;
+  priority?: T;
+  doc?: T;
+  platform?: T;
+  helpful?: T;
+  author?: T;
+  excerpt?: T;
+  updatedAt?: T;
+  createdAt?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "exports_select".
+ */
+export interface ExportsSelect<T extends boolean = true> {
+  name?: T;
+  format?: T;
+  limit?: T;
+  page?: T;
+  sort?: T;
+  sortOrder?: T;
+  drafts?: T;
+  selectionToUse?: T;
+  fields?: T;
+  collectionSlug?: T;
+  where?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "imports_select".
+ */
+export interface ImportsSelect<T extends boolean = true> {
+  collectionSlug?: T;
+  importMode?: T;
+  matchField?: T;
+  status?: T;
+  summary?:
+    | T
+    | {
+        imported?: T;
+        updated?: T;
+        total?: T;
+        issues?: T;
+        issueDetails?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  url?: T;
+  thumbnailURL?: T;
+  filename?: T;
+  mimeType?: T;
+  filesize?: T;
+  width?: T;
+  height?: T;
+  focalX?: T;
+  focalY?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-mcp-api-keys_select".
+ */
+export interface PayloadMcpApiKeysSelect<T extends boolean = true> {
+  user?: T;
+  label?: T;
+  description?: T;
+  updatedAt?: T;
+  createdAt?: T;
+  enableAPIKey?: T;
+  apiKey?: T;
+  apiKeyIndex?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "payload-kv_select".
  */
 export interface PayloadKvSelect<T extends boolean = true> {
   key?: T;
   data?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "payload-jobs_select".
+ */
+export interface PayloadJobsSelect<T extends boolean = true> {
+  input?: T;
+  taskStatus?: T;
+  completedAt?: T;
+  totalTried?: T;
+  hasError?: T;
+  error?: T;
+  log?:
+    | T
+    | {
+        executedAt?: T;
+        completedAt?: T;
+        taskSlug?: T;
+        taskID?: T;
+        input?: T;
+        output?: T;
+        state?: T;
+        error?: T;
+        id?: T;
+      };
+  taskSlug?: T;
+  queue?: T;
+  waitUntil?: T;
+  processing?: T;
+  updatedAt?: T;
+  createdAt?: T;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
@@ -4508,9 +4746,6 @@ export interface GetStarted {
  */
 export interface PartnerProgram {
   id: number;
-  /**
-   * Select the form that should be used for the contact form.
-   */
   contactForm: number | Form;
   hero?: {
     richText?: {
@@ -4944,46 +5179,6 @@ export interface TopBarSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "analytics-overview_widget".
- */
-export interface AnalyticsOverviewWidget {
-  data?: {
-    period?: ('7days' | '30days' | '90days') | null;
-  };
-  width: 'medium' | 'large' | 'x-large' | 'full';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "top-pages_widget".
- */
-export interface TopPagesWidget {
-  data?: {
-    period?: ('7days' | '30days' | '90days') | null;
-  };
-  width: 'medium' | 'large' | 'x-large' | 'full';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "active-users_widget".
- */
-export interface ActiveUsersWidget {
-  data?: {
-    [k: string]: unknown;
-  };
-  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "channel-groups_widget".
- */
-export interface ChannelGroupsWidget {
-  data?: {
-    period?: ('7days' | '30days' | '90days') | null;
-  };
-  width: 'x-small' | 'small' | 'medium' | 'large' | 'x-large' | 'full';
-}
-/**
- * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "collections_widget".
  */
 export interface CollectionsWidget {
@@ -4991,6 +5186,76 @@ export interface CollectionsWidget {
     [k: string]: unknown;
   };
   width: 'full';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionExport".
+ */
+export interface TaskCreateCollectionExport {
+  input: {
+    id: string;
+    name: string;
+    batchSize?: number | null;
+    collectionSlug:
+      | 'case-studies'
+      | 'community-help'
+      | 'docs'
+      | 'media'
+      | 'pages'
+      | 'posts'
+      | 'categories'
+      | 'reusable-content'
+      | 'users'
+      | 'partners'
+      | 'industries'
+      | 'specialties'
+      | 'regions'
+      | 'budgets'
+      | 'forms'
+      | 'form-submissions'
+      | 'redirects'
+      | 'search'
+      | 'exports'
+      | 'imports';
+    drafts?: ('yes' | 'no') | null;
+    exportCollection: string;
+    fields?: string[] | null;
+    format: 'csv' | 'json';
+    limit?: number | null;
+    locale?: string | null;
+    maxLimit?: number | null;
+    page?: number | null;
+    sort?: string | null;
+    userCollection?: string | null;
+    userID?: string | null;
+    where?:
+      | {
+          [k: string]: unknown;
+        }
+      | unknown[]
+      | string
+      | number
+      | boolean
+      | null;
+  };
+  output?: unknown;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "TaskCreateCollectionImport".
+ */
+export interface TaskCreateCollectionImport {
+  input: {
+    importId: string;
+    importCollection: string;
+    userID?: string | null;
+    userCollection?: string | null;
+    batchSize?: number | null;
+    debug?: boolean | null;
+    defaultVersionStatus?: ('draft' | 'published') | null;
+    maxLimit?: number | null;
+  };
+  output?: unknown;
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema

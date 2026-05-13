@@ -1,22 +1,13 @@
-const gaMeasurementID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
-const pixelID = process.env.NEXT_PUBLIC_FACEBOOK_PIXEL_ID
+/**
+ * Event tracking — Cloudflare Web Analytics edition.
+ *
+ * Cloudflare Web Analytics auto-records page views and Web Vitals; there is
+ * no public custom-event API. This helper is intentionally a no-op so
+ * existing call sites (`analyticsEvent('signup_started', ...)` etc.) keep
+ * compiling. If you need custom events later, route them to a Worker that
+ * writes to the Workers Analytics Engine binding.
+ */
 
-export function analyticsEvent(event: string, value?: unknown): void {
-  const Window = window as any // eslint-disable-line @typescript-eslint/no-explicit-any
-
-  if (gaMeasurementID && typeof Window.gtag === 'function') {
-    Window.gtag('event', event, value)
-  }
-
-  if (pixelID) {
-    void import('react-facebook-pixel')
-      .then((x) => x.default)
-      .then((ReactPixel) => {
-        if (event === 'page_view') {
-          ReactPixel.pageView()
-        } else {
-          ReactPixel.track(event, value)
-        }
-      })
-  }
+export function analyticsEvent(_event: string, _value?: unknown): void {
+  // intentionally empty — see header comment
 }

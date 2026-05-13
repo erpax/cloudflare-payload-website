@@ -1,6 +1,16 @@
 'use client'
 
-import { toast, useConfig } from '@payloadcms/ui'
+/**
+ * Admin button that re-syncs Community Help threads into the D1 search
+ * index. The component name is kept for migration compatibility; the API
+ * route also retained its `/sync-algolia` path. Both now write to D1 FTS.
+ */
+
+import { toast, useConfig, useTranslation } from '@payloadcms/ui'
+import type {
+  CustomTranslationsKeys,
+  CustomTranslationsObject,
+} from '@root/i18n/types'
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -8,6 +18,7 @@ import './index.scss'
 const baseClass = 'sync-algolia-button'
 
 const SyncToAlgolia: React.FC = () => {
+  const { t } = useTranslation<CustomTranslationsObject, CustomTranslationsKeys>()
   const [isSyncing, setIsSyncing] = useState(false)
   const {
     config: {
@@ -15,14 +26,14 @@ const SyncToAlgolia: React.FC = () => {
     },
   } = useConfig()
 
-  const syncToAlgolia = async () => {
+  const syncToSearch = async () => {
     try {
       setIsSyncing(true)
 
       const res = await fetch(`${api}/sync-algolia`)
 
       if (!res.ok) {
-        let errorMessage = 'Failed to sync Algolia with Community Help'
+        let errorMessage = t('website:components:SyncToAlgolia:failure')
         try {
           const data = await res.json()
           errorMessage += `: ${data?.message || 'Unknown error'}`
@@ -33,17 +44,19 @@ const SyncToAlgolia: React.FC = () => {
         return
       }
 
-      toast.success('Algolia synced with Community Help threads successfully')
+      toast.success(t('website:components:SyncToAlgolia:success'))
     } catch (error) {
       console.error('Sync failed:', error)
-      toast.error('An error occurred while syncing Algolia with community help. Please try again.')
+      toast.error(t('website:components:SyncToAlgolia:errorRetry'))
     }
     setIsSyncing(false)
   }
 
   return (
-    <button className={baseClass} disabled={isSyncing} onClick={syncToAlgolia} type="button">
-      {isSyncing ? 'Syncing...' : 'Sync Algolia + Community Help'}
+    <button className={baseClass} disabled={isSyncing} onClick={syncToSearch} type="button">
+      {isSyncing
+        ? t('website:components:SyncToAlgolia:loading')
+        : t('website:components:SyncToAlgolia:label')}
     </button>
   )
 }

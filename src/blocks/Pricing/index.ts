@@ -32,7 +32,7 @@ export const Pricing: Block = {
               admin: {
                 condition: (_, { hasPrice }) => Boolean(hasPrice),
               },
-              label: 'Price per month',
+              label: ({ t }) => t('website:blocks:Pricing:price:label'),
               required: true,
             },
             {
@@ -41,7 +41,7 @@ export const Pricing: Block = {
               admin: {
                 condition: (_, { hasPrice }) => !hasPrice,
               },
-              label: 'Title',
+              label: ({ t }) => t('website:blocks:Pricing:title:label'),
               required: true,
             },
             {
@@ -69,11 +69,11 @@ export const Pricing: Block = {
                   type: 'radio',
                   options: [
                     {
-                      label: 'Check',
+                      label: ({ t }) => t('website:blocks:Pricing:icon:label'),
                       value: 'check',
                     },
                     {
-                      label: 'X',
+                      label: ({ t }) => t('website:blocks:Pricing:icon:label'),
                       value: 'x',
                     },
                   ],

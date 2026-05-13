@@ -13,7 +13,7 @@ export const CaseStudyCards: Block = {
           name: 'pixels',
           type: 'checkbox',
           defaultValue: true,
-          label: 'Show Pixel Background?',
+          label: ({ t }) => t('website:blocks:CaseStudyCards:pixels:label'),
         },
         {
           name: 'cards',
@@ -34,7 +34,7 @@ export const CaseStudyCards: Block = {
     }),
   ],
   labels: {
-    plural: 'Case Study Cards',
-    singular: 'Case Study Cards',
+    plural: ({ t }) => t('website:blocks:CaseStudyCards:caseStudyCards:plural'),
+    singular: ({ t }) => t('website:blocks:CaseStudyCards:caseStudyCards:singular'),
   },
 }

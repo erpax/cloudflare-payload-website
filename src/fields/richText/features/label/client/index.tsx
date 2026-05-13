@@ -26,7 +26,7 @@ export const LabelFeatureClient = createClientFeature({
             Icon: LabelIcon,
             key: 'label',
             keywords: ['label'],
-            label: 'Label',
+            label: ({ t }) => t('website:fields:richText:features:label:client:line29:label'),
             onSelect: () => {
               const selection = $getSelection()
               if ($isRangeSelection(selection)) {
@@ -36,7 +36,7 @@ export const LabelFeatureClient = createClientFeature({
           },
         ],
         key: 'Basic',
-        label: 'Basic',
+        label: ({ t }) => t('website:fields:richText:features:label:client:line39:label'),
       },
     ],
   },

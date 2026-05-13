@@ -60,7 +60,7 @@ export const ReusableContent: CollectionConfig = {
     },
   ],
   labels: {
-    plural: 'Reusable Contents',
-    singular: 'Reusable Content',
+    plural: ({ t }) => t('website:collections:ReusableContent:reusable-content:plural'),
+    singular: ({ t }) => t('website:collections:ReusableContent:reusable-content:singular'),
   },
 }

@@ -42,6 +42,18 @@
     "binding": "IMAGES",
   },
 
+  // Cloudflare Email Workers — outbound mail binding (replaces Resend).
+  // Configure verified destination address(es) in the Cloudflare dashboard
+  // under Email > Email Workers. Each `destination_address` listed below must
+  // be verified before `env.SEND_EMAIL.send(...)` will deliver to it.
+  "send_email": [
+    {
+      "name": "SEND_EMAIL",
+      // "destination_address": "info@payloadcms.com",
+      // "allowed_destination_addresses": ["info@payloadcms.com"],
+    },
+  ],
+
   // Cron triggers — currently none. If you need scheduled work, add patterns
   // here and a `scheduled()` handler in the worker; replaces node-cron.
   "triggers": {
@@ -52,6 +64,13 @@
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "http://localhost:3000",
     "PAYLOAD_PUBLIC_APP_URL": "http://localhost:3000",
+    // Turnstile public site key (set in the Cloudflare dashboard; safe to commit).
+    "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "",
+    // Cloudflare Web Analytics beacon token (replaces GA + FB Pixel).
+    "NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN": "",
+    // Default "from" address for outbound mail via SEND_EMAIL.
+    "MAIL_FROM_ADDRESS": "info@payloadcms.com",
+    "MAIL_FROM_NAME": "Payload",
   },
 
   // Per-environment overrides — deploy with `wrangler deploy --env=production`.
@@ -76,9 +95,9 @@
   // Only PAYLOAD_SECRET is required. Set via the deploy wizard (Encrypted) or
   //   wrangler secret put PAYLOAD_SECRET --env production
   // Optional, only if you use the corresponding feature:
-  //   RESEND_API_KEY                     — email
+  //   TURNSTILE_SECRET_KEY               — Cloudflare Turnstile siteverify
+  //                                        (replaces NEXT_PRIVATE_RECAPTCHA_SECRET_KEY)
   //   NEXT_PRIVATE_HUBSPOT_PORTAL_KEY    — form submissions to HubSpot
-  //   NEXT_PRIVATE_RECAPTCHA_SECRET_KEY  — reCAPTCHA verification
   //   VERCEL_REDEPLOY_URL                — admin "Redeploy" hook target
   //                                        (any HTTP webhook works; name kept
   //                                        for upstream compatibility)
@@ -86,5 +105,8 @@
   //   COMMIT_DOCS_API_URL / API_KEY      — write-back docs sync
   //   DISCORD_TOKEN                      — Discord community-help sync
   //   STRIPE_SECRET_KEY                  — Stripe (cloud-pricing)
-  //   SENDGRID_API_KEY                   — unused (replaced by RESEND_API_KEY)
+  // No longer used — removed in the Cloudflare-bindings migration:
+  //   RESEND_API_KEY      → replaced by SEND_EMAIL binding above
+  //   ALGOLIA_*           → replaced by D1 FTS5 search
+  //   GA / FB_PIXEL keys  → replaced by Cloudflare Web Analytics beacon
 }

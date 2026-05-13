@@ -32,8 +32,8 @@ const codeBlips: ArrayField = {
     }),
   ],
   labels: {
-    plural: 'Blips',
-    singular: 'Blip',
+    plural: ({ t }) => t('website:fields:codeBlips:line35:plural'),
+    singular: ({ t }) => t('website:fields:codeBlips:line36:singular'),
   },
 }
 

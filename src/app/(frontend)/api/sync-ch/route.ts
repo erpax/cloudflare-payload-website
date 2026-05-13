@@ -3,9 +3,9 @@ import { NextResponse } from 'next/server'
 
 import fetchDiscord from '../../../../scripts/fetchDiscord'
 import fetchGitHub from '../../../../scripts/fetchGitHub'
-import syncToAlgolia from '../../../../scripts/syncToAlgolia'
+import syncToD1Search from '../../../../scripts/syncToD1Search'
 
-export const maxDuration = 300 // 5 mins (max on vercel pro plan)
+export const maxDuration = 300 // 5 mins (legacy limit; unused on Workers)
 export const dynamic = 'force-dynamic'
 
 export async function GET(): Promise<NextResponse> {
@@ -13,7 +13,7 @@ export async function GET(): Promise<NextResponse> {
     { name: 'clearDuplicateThreads', fn: clearDuplicateThreads },
     { name: 'fetchDiscord', fn: fetchDiscord },
     { name: 'fetchGitHub', fn: fetchGitHub },
-    { name: 'syncToAlgolia', fn: syncToAlgolia },
+    { name: 'syncToD1Search', fn: syncToD1Search },
   ]
 
   // Execute each task, catch errors, and log them

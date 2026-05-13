@@ -35,11 +35,11 @@ export const StickyHighlights: Block = {
               type: 'radio',
               options: [
                 {
-                  label: 'Code',
+                  label: ({ t }) => t('website:blocks:StickyHighlights:type:label'),
                   value: 'code',
                 },
                 {
-                  label: 'Media',
+                  label: ({ t }) => t('website:blocks:StickyHighlights:type:label'),
                   value: 'media',
                 },
               ],
@@ -73,7 +73,7 @@ export const StickyHighlights: Block = {
     }),
   ],
   labels: {
-    plural: 'Sticky Highlights Blocks',
-    singular: 'Sticky Highlights Block',
+    plural: ({ t }) => t('website:blocks:StickyHighlights:stickyHighlights:plural'),
+    singular: ({ t }) => t('website:blocks:StickyHighlights:stickyHighlights:singular'),
   },
 }

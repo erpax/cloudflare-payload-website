@@ -12,6 +12,10 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const Posts: CollectionConfig = {
   slug: 'posts',
+  labels: {
+    singular: { en: 'Post', bg: 'Публикация' },
+    plural: { en: 'Posts', bg: 'Публикации' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -90,11 +94,11 @@ export const Posts: CollectionConfig = {
       defaultValue: 'upload',
       options: [
         {
-          label: 'Image Upload',
+          label: ({ t }) => t('website:collections:Posts:featuredMedia:label'),
           value: 'upload',
         },
         {
-          label: 'Video Embed',
+          label: ({ t }) => t('website:collections:Posts:featuredMedia:label'),
           value: 'videoUrl',
         },
       ],
@@ -114,7 +118,7 @@ export const Posts: CollectionConfig = {
       admin: {
         condition: (_, siblingData) => siblingData?.featuredMedia === 'videoUrl',
       },
-      label: 'Video URL',
+      label: ({ t }) => t('website:collections:Posts:videoUrl:label'),
     },
     {
       name: 'dynamicThumbnail',
@@ -123,7 +127,7 @@ export const Posts: CollectionConfig = {
         condition: (_, siblingData) => siblingData?.featuredMedia === 'videoUrl',
       },
       defaultValue: true,
-      label: 'Use dynamic thumbnail',
+      label: ({ t }) => t('website:collections:Posts:dynamicThumbnail:label'),
     },
     {
       name: 'thumbnail',
@@ -331,7 +335,7 @@ export const Posts: CollectionConfig = {
           label: false,
         },
       ],
-      label: 'Guest Author Socials',
+      label: ({ t }) => t('website:collections:Posts:website:label'),
     },
     {
       name: 'publishedOn',

@@ -13,7 +13,7 @@ export const HoverCards: Block = {
         {
           name: 'hideBackground',
           type: 'checkbox',
-          label: 'Hide Background',
+          label: ({ t }) => t('website:blocks:HoverCards:hideBackground:label'),
         },
         richText(),
         {

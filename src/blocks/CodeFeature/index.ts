@@ -15,7 +15,7 @@ export const CodeFeature: Block = {
           name: 'forceDarkBackground',
           type: 'checkbox',
           admin: {
-            description: 'Check this box to force this block to have a dark background.',
+            description: ({ t }) => t('website:blocks:CodeFeature:forceDarkBackground:description'),
           },
         },
         {
@@ -25,17 +25,17 @@ export const CodeFeature: Block = {
               name: 'alignment',
               type: 'select',
               admin: {
-                description: 'Choose how to align the content for this block.',
+                description: ({ t }) => t('website:blocks:CodeFeature:alignment:description'),
                 width: '50%',
               },
               defaultValue: 'contentCode',
               options: [
                 {
-                  label: 'Content + Code',
+                  label: ({ t }) => t('website:blocks:CodeFeature:alignment:label'),
                   value: 'contentCode',
                 },
                 {
-                  label: 'Code + Content',
+                  label: ({ t }) => t('website:blocks:CodeFeature:line38:label'),
                   value: 'codeContent',
                 },
               ],
@@ -57,7 +57,9 @@ export const CodeFeature: Block = {
           name: 'codeTabs',
           type: 'array',
           // [cloudflare/d1] 63-char limit; overflows under reusable_content.
-          dbName: 'cf_tabs',
+          // Must NOT start with `cf` — workerd reserves the `_cf_` prefix
+          // (Payload prepends `_` for version tables, so `cf_*` → `_cf_*`).
+          dbName: 'ctabs',
           fields: [
             {
               type: 'row',
@@ -68,15 +70,15 @@ export const CodeFeature: Block = {
                   defaultValue: 'none',
                   options: [
                     {
-                      label: 'None',
+                      label: ({ t }) => t('website:blocks:CodeFeature:language:label'),
                       value: 'none',
                     },
                     {
-                      label: 'JavaScript',
+                      label: ({ t }) => t('website:blocks:CodeFeature:language:label'),
                       value: 'js',
                     },
                     {
-                      label: 'TypeScript',
+                      label: ({ t }) => t('website:blocks:CodeFeature:line79:label'),
                       value: 'ts',
                     },
                   ],
@@ -84,7 +86,7 @@ export const CodeFeature: Block = {
                 {
                   name: 'label',
                   type: 'text',
-                  label: 'Tab Label',
+                  label: ({ t }) => t('website:blocks:CodeFeature:label:label'),
                   required: true,
                 },
               ],

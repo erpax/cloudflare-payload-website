@@ -7,6 +7,7 @@ import link from '../fields/link'
 
 export const Footer: GlobalConfig = {
   slug: 'footer',
+  label: { en: 'Footer', bg: 'Долна част' },
   access: {
     read: () => true,
     update: isAdmin,

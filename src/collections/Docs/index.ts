@@ -62,6 +62,10 @@ export const contentLexicalEditorFeatures: FeatureProviderServer[] = [
 
 export const Docs: CollectionConfig = {
   slug: 'docs',
+  labels: {
+    singular: { en: 'Doc', bg: 'Документ' },
+    plural: { en: 'Docs', bg: 'Документи' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -107,7 +111,7 @@ export const Docs: CollectionConfig = {
               }),
             },
           ],
-          label: 'Content',
+          label: ({ t }) => t('website:collections:Docs:content:label'),
         },
         {
           fields: [
@@ -195,7 +199,7 @@ export const Docs: CollectionConfig = {
               },
             },
           ],
-          label: 'Meta',
+          label: ({ t }) => t('website:collections:Docs:version:label'),
         },
       ],
     },

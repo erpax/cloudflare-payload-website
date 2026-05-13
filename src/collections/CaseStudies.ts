@@ -11,6 +11,10 @@ import { formatPreviewURL } from '../utilities/formatPreviewURL'
 
 export const CaseStudies: CollectionConfig = {
   slug: 'case-studies',
+  labels: {
+    singular: { en: 'Case Study', bg: 'Случай на употреба' },
+    plural: { en: 'Case Studies', bg: 'Случаи на употреба' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -102,7 +106,7 @@ export const CaseStudies: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
-      label: 'URL',
+      label: ({ t }) => t('website:collections:CaseStudies:url:label'),
     },
   ],
   hooks: {

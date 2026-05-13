@@ -2,7 +2,6 @@ import type { CollectionConfig } from 'payload'
 
 import { isAdmin } from '../../access/isAdmin'
 import { extractDescription } from './extract-description'
-import { updateAlgolia } from './updateAlgolia'
 
 export const CommunityHelp: CollectionConfig = {
   slug: 'community-help',
@@ -26,14 +25,14 @@ export const CommunityHelp: CollectionConfig = {
       access: {
         update: () => false,
       },
-      label: 'Community Help Type',
+      label: ({ t }) => t('website:collections:CommunityHelp:communityHelpType:label'),
       options: [
         {
-          label: 'Discord Thread',
+          label: ({ t }) => t('website:collections:CommunityHelp:communityHelpType:label'),
           value: 'discord',
         },
         {
-          label: 'GitHub Discussion',
+          label: ({ t }) => t('website:collections:CommunityHelp:line36:label'),
           value: 'github',
         },
       ],
@@ -45,7 +44,7 @@ export const CommunityHelp: CollectionConfig = {
         condition: (_, siblingData) => siblingData?.communityHelpType === 'github',
       },
       index: true,
-      label: 'GitHub ID',
+      label: ({ t }) => t('website:collections:CommunityHelp:githubID:label'),
     },
     {
       name: 'discordID',
@@ -54,7 +53,7 @@ export const CommunityHelp: CollectionConfig = {
         condition: (_, siblingData) => siblingData?.communityHelpType === 'discord',
       },
       index: true,
-      label: 'Discord ID',
+      label: ({ t }) => t('website:collections:CommunityHelp:discordID:label'),
     },
     {
       name: 'communityHelpJSON',
@@ -88,7 +87,7 @@ export const CommunityHelp: CollectionConfig = {
         position: 'sidebar',
       },
       index: true,
-      label: 'Slug',
+      label: ({ t }) => t('website:collections:CommunityHelp:slug:label'),
     },
     {
       name: 'helpful',
@@ -96,21 +95,9 @@ export const CommunityHelp: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
-      hooks: {
-        afterChange: [
-          async ({ previousValue, siblingData, value }) => {
-            if (previousValue !== value) {
-              const docID =
-                siblingData.communityHelpType === 'discord'
-                  ? siblingData.discordID
-                  : siblingData.githubID
-              if (docID) {
-                await updateAlgolia(docID, value)
-              }
-            }
-          },
-        ],
-      },
+      // Search re-sync happens automatically via plugin-search's
+      // beforeChange hook on this collection, so no afterChange wiring is
+      // needed here when `helpful` toggles.
     },
     {
       name: 'relatedDocs',
@@ -131,7 +118,7 @@ export const CommunityHelp: CollectionConfig = {
     },
   ],
   labels: {
-    plural: 'Community Helps',
-    singular: 'Community Help',
+    plural: ({ t }) => t('website:collections:CommunityHelp:community-help:plural'),
+    singular: ({ t }) => t('website:collections:CommunityHelp:community-help:singular'),
   },
 }

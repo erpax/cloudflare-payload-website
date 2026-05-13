@@ -1,6 +1,10 @@
 'use client'
 
-import { Button, TextInput, toast, useConfig } from '@payloadcms/ui'
+import { Button, TextInput, toast, useConfig, useTranslation } from '@payloadcms/ui'
+import type {
+  CustomTranslationsKeys,
+  CustomTranslationsObject,
+} from '@root/i18n/types'
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -8,6 +12,7 @@ import './index.scss'
 const baseClass = 'before-dashboard'
 
 const BeforeDashboard: React.FC = () => {
+  const { t } = useTranslation<CustomTranslationsObject, CustomTranslationsKeys>()
   const [isLoadingLatest, setIsLoadingLatest] = useState(false)
   const [isLoadingSpecific, setIsLoadingSpecific] = useState(false)
   const [version, setVersion] = useState('')
@@ -39,8 +44,8 @@ const BeforeDashboard: React.FC = () => {
 
     void toast.promise(promise, {
       error: (err: Error) => err.message,
-      loading: 'Creating draft release post...',
-      success: 'Draft release post created',
+      loading: t('website:components:BeforeDashboard:toastLoading'),
+      success: t('website:components:BeforeDashboard:toastSuccess'),
     })
 
     void promise.finally(() => {
@@ -54,11 +59,10 @@ const BeforeDashboard: React.FC = () => {
 
   return (
     <div className={baseClass}>
-      <h2 className={`${baseClass}__heading`}>Payload Release Notes</h2>
-      <h4>
-        Use this component to sync Payload release notes to a draft blog post assigned to the
-        Release Notes category.
-      </h4>
+      <h2 className={`${baseClass}__heading`}>
+        {t('website:components:BeforeDashboard:heading')}
+      </h2>
+      <h4>{t('website:components:BeforeDashboard:subheading')}</h4>
       <div className={`${baseClass}__actions`}>
         <Button
           buttonStyle="secondary"
@@ -66,13 +70,15 @@ const BeforeDashboard: React.FC = () => {
           onClick={() => createPost()}
           size="large"
         >
-          Pull Latest Release
+          {isLoadingLatest
+            ? t('website:components:BeforeDashboard:pullLatestLoading')
+            : t('website:components:BeforeDashboard:pullLatest')}
         </Button>
         <div className={`${baseClass}__specific`}>
           <TextInput
             onChange={(e) => setVersion((e as React.ChangeEvent<HTMLInputElement>).target.value)}
             path="version"
-            placeholder="e.g. 3.1.0"
+            placeholder={t('website:components:BeforeDashboard:versionPlaceholder')}
             value={version}
           />
           <Button
@@ -81,7 +87,9 @@ const BeforeDashboard: React.FC = () => {
             onClick={() => createPost(version.trim())}
             size="large"
           >
-            Pull Specific Release
+            {isLoadingSpecific
+              ? t('website:components:BeforeDashboard:pullSpecificLoading')
+              : t('website:components:BeforeDashboard:pullSpecific')}
           </Button>
         </div>
       </div>

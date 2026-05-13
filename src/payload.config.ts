@@ -1,11 +1,17 @@
 import { revalidateRedirects } from '@hooks/revalidateRedirects'
 import { type CloudflareContext, getCloudflareContext } from '@opennextjs/cloudflare'
 import { sqliteD1Adapter } from '@payloadcms/db-d1-sqlite'
-import { resendAdapter } from '@payloadcms/email-resend'
 import { formBuilderPlugin } from '@payloadcms/plugin-form-builder'
+import { importExportPlugin } from '@payloadcms/plugin-import-export'
+import { mcpPlugin } from '@payloadcms/plugin-mcp'
 import { nestedDocsPlugin } from '@payloadcms/plugin-nested-docs'
 import { redirectsPlugin } from '@payloadcms/plugin-redirects'
+import { searchPlugin } from '@payloadcms/plugin-search'
+import { sentryPlugin } from '@payloadcms/plugin-sentry'
 import { seoPlugin } from '@payloadcms/plugin-seo'
+import { bg } from '@payloadcms/translations/languages/bg'
+import { en } from '@payloadcms/translations/languages/en'
+import websiteI18n from './i18n/website.json'
 import {
   BlocksFeature,
   EXPERIMENTAL_TableFeature,
@@ -17,7 +23,9 @@ import { r2Storage } from '@payloadcms/storage-r2'
 import link from '@root/fields/link'
 import { LabelFeature } from '@root/fields/richText/features/label/server'
 import { LargeBodyFeature } from '@root/fields/richText/features/largeBody/server'
-import { googleAnalytics } from '@zubricks/plugin-google-analytics'
+import { cloudflareEmailAdapter } from '@root/lib/cloudflareEmailAdapter'
+import { verifyTurnstile } from '@root/lib/turnstile'
+import { withShortEnums } from '@root/utilities/shortEnumName'
 import { revalidateTag } from 'next/cache'
 import path from 'path'
 import { buildConfig, type TextField } from 'payload'
@@ -101,7 +109,7 @@ const cloudflare = process.argv.find((value) => /^(generate|migrate):?/.test(val
   ? await getCloudflareContextFromWrangler()
   : await getCloudflareContext({ async: true })
 
-export default buildConfig({
+export default buildConfig(withShortEnums({
   admin: {
     autoLogin: {
       email: 'dev2@payloadcms.com',
@@ -374,12 +382,19 @@ export default buildConfig({
       }),
     ],
   }),
-  // [cloudflare] Resend transport — Cloudflare Workers can't run nodemailer
-  // (Node net APIs); Resend's HTTP API works fine on workerd via fetch.
-  email: resendAdapter({
-    apiKey: process.env.RESEND_API_KEY || '',
-    defaultFromAddress: process.env.RESEND_FROM_ADDRESS || 'info@payloadcms.com',
-    defaultFromName: process.env.RESEND_FROM_NAME || 'Payload',
+  // [cloudflare] Cloudflare Email Workers `send_email` binding. Each
+  // destination address must be verified in the Cloudflare dashboard
+  // (Email > Email Routing > Destination addresses) before delivery
+  // succeeds. Replaces the Resend HTTP transport.
+  email: cloudflareEmailAdapter({
+    // SEND_EMAIL is typed as workers-types `SendEmail` (with EmailMessage
+    // class shapes) — our adapter only relies on `.send(...)`, so cast to
+    // its narrower local interface.
+    binding: cloudflare.env.SEND_EMAIL as unknown as Parameters<
+      typeof cloudflareEmailAdapter
+    >[0]['binding'],
+    defaultFromAddress: process.env.MAIL_FROM_ADDRESS || 'info@payloadcms.com',
+    defaultFromName: process.env.MAIL_FROM_NAME || 'Payload',
   }),
   endpoints: [
     {
@@ -412,17 +427,52 @@ export default buildConfig({
   graphQL: {
     disablePlaygroundInProduction: false,
   },
+  // Admin UI locales + plugin-namespace overrides. To discover missing
+  // translation keys for any installed plugin, run
+  // `pnpm sync-translations` — it prints empty-string stubs for any key a
+  // plugin defines in English but doesn't ship in our supported locales.
+  // Paste the stubs into this `translations` block and fill them in.
+  i18n: {
+    supportedLanguages: { en, bg },
+    translations: {
+      en: {
+        'plugin-redirects': {
+          customUrl: 'Custom URL',
+          documentToRedirect: 'Document to Redirect',
+          fromUrl: 'From URL',
+          internalLink: 'Internal Link',
+          redirectType: 'Redirect Type',
+          toUrlType: 'To URL Type',
+        },
+        // 190 admin-side labels extracted from collections/blocks/globals/fields
+        // by `scripts/extract-codebase-labels.mjs`. Reference these via
+        // `t('website:<dotted:path>')` once you refactor the callsites.
+        website: websiteI18n.en,
+      },
+      bg: {
+        'plugin-redirects': {
+          customUrl: 'Персонализиран URL',
+          documentToRedirect: 'Документ за пренасочване',
+          fromUrl: 'Изходен URL',
+          internalLink: 'Вътрешна връзка',
+          redirectType: 'Тип на пренасочване',
+          toUrlType: 'Тип на целевия URL',
+        },
+        website: websiteI18n.bg,
+      },
+    },
+  },
   plugins: [
     opsCounterPlugin({
       max: 200,
       warnAt: 25,
     }),
-    googleAnalytics({
-      // Optional: Configure which widgets to enable
-      enabledWidgets: ['analytics-overview', 'top-pages', 'active-users', 'channel-groups'],
-    }),
     formBuilderPlugin({
       formOverrides: {
+        labels: {
+          singular: { en: 'Form', bg: 'Форма' },
+          plural: { en: 'Forms', bg: 'Форми' },
+        },
         fields: ({ defaultFields }) => [
           ...defaultFields,
           {
@@ -431,24 +481,31 @@ export default buildConfig({
             admin: {
               position: 'sidebar',
             },
-            label: 'HubSpot Form ID',
+            label: { en: 'HubSpot Form ID', bg: 'HubSpot ID на форма' },
           },
           {
             name: 'customID',
             type: 'text',
             admin: {
-              description: 'Attached to submission button to track clicks',
+              description: {
+                en: 'Attached to submission button to track clicks',
+                bg: 'Прикачен към бутона за изпращане за проследяване на кликове',
+              },
               position: 'sidebar',
             },
-            label: 'Custom ID',
+            label: { en: 'Custom ID', bg: 'Персонализиран ID' },
           },
           {
             name: 'requireRecaptcha',
             type: 'checkbox',
             admin: {
               position: 'sidebar',
+              description: {
+                en: 'Require a Cloudflare Turnstile challenge on this form. (Field name kept for migration compatibility.)',
+                bg: 'Изисквай Cloudflare Turnstile проверка на тази форма. (Името на полето е запазено за съвместимост.)',
+              },
             },
-            label: 'Require reCAPTCHA',
+            label: { en: 'Require Turnstile', bg: 'Изисквай Turnstile' },
           },
         ],
         hooks: {
@@ -460,11 +517,19 @@ export default buildConfig({
         },
       },
       formSubmissionOverrides: {
+        labels: {
+          singular: { en: 'Form Submission', bg: 'Изпращане на форма' },
+          plural: { en: 'Form Submissions', bg: 'Изпращания на форми' },
+        },
         fields: ({ defaultFields }) => [
           ...defaultFields,
           {
             name: 'recaptcha',
             type: 'text',
+            admin: {
+              description:
+                'Cloudflare Turnstile token. Field name kept for migration compatibility.',
+            },
             validate: async (value, { req, siblingData }) => {
               const form = await req.payload.findByID({
                 id: siblingData?.form,
@@ -476,21 +541,21 @@ export default buildConfig({
               }
 
               if (!value) {
-                return 'Please complete the reCAPTCHA'
+                return 'Please complete the Turnstile challenge'
               }
 
-              const res = await fetch(
-                `https://www.google.com/recaptcha/api/siteverify?secret=${process.env.NEXT_PRIVATE_RECAPTCHA_SECRET_KEY}&response=${value}`,
-                {
-                  method: 'POST',
-                },
-              )
-              const data = await res.json()
-              if (!data.success) {
-                return 'Invalid captcha'
-              } else {
-                return true
-              }
+              const remoteip =
+                req?.headers?.get?.('cf-connecting-ip') ??
+                req?.headers?.get?.('x-forwarded-for') ??
+                undefined
+
+              const ok = await verifyTurnstile({
+                token: String(value),
+                remoteip: remoteip ?? undefined,
+                secret: process.env.TURNSTILE_SECRET_KEY ?? '',
+              })
+
+              return ok ? true : 'Invalid Turnstile token'
             },
           },
         ],
@@ -594,11 +659,124 @@ export default buildConfig({
     redirectsPlugin({
       collections: ['case-studies', 'pages', 'posts'],
       overrides: {
+        labels: {
+          singular: { en: 'Redirect', bg: 'Пренасочване' },
+          plural: { en: 'Redirects', bg: 'Пренасочвания' },
+        },
         hooks: {
           afterChange: [revalidateRedirects],
         },
       },
     }),
+    // First-party Payload search plugin — replaces Algolia. Mirrors each
+    // listed collection into a generated `search` collection via
+    // beforeChange/afterDelete hooks. Query via Payload's local/REST API:
+    //   GET /api/search?where[doc.relationTo][equals]=docs&where[title][like]=...
+    searchPlugin({
+      collections: ['community-help', 'docs', 'posts'],
+      defaultPriorities: {
+        docs: 30,
+        posts: 20,
+        'community-help': 10,
+      },
+      searchOverrides: {
+        labels: {
+          singular: { en: 'Search Result', bg: 'Резултат от търсене' },
+          plural: { en: 'Search Results', bg: 'Резултати от търсене' },
+        },
+        fields: ({ defaultFields }) => [
+          ...defaultFields,
+          {
+            name: 'platform',
+            type: 'text',
+            admin: { description: { en: 'discord | github | docs | posts', bg: 'discord | github | docs | posts' } },
+          },
+          {
+            name: 'helpful',
+            type: 'checkbox',
+            defaultValue: true,
+            label: { en: 'Helpful', bg: 'Полезно' },
+          },
+          {
+            name: 'author',
+            type: 'text',
+            label: { en: 'Author', bg: 'Автор' },
+          },
+          {
+            name: 'excerpt',
+            type: 'textarea',
+            label: { en: 'Excerpt', bg: 'Откъс' },
+          },
+        ],
+      },
+      beforeSync: ({ originalDoc, searchDoc }) => {
+        // Carry over community-help-specific fields so the search row
+        // remains filterable on `helpful` + `platform`.
+        const helpful = (originalDoc as { helpful?: boolean }).helpful
+        const communityHelpType = (originalDoc as { communityHelpType?: string }).communityHelpType
+        const json = (originalDoc as { communityHelpJSON?: any }).communityHelpJSON
+        return {
+          ...searchDoc,
+          helpful: typeof helpful === 'boolean' ? helpful : true,
+          platform: communityHelpType ?? 'docs',
+          author:
+            json?.intro?.authorName ?? json?.author?.name ?? (originalDoc as any)?.author?.name ?? '',
+          excerpt:
+            json?.intro?.content ??
+            json?.body ??
+            (originalDoc as any)?.introDescription ??
+            (originalDoc as any)?.excerpt ??
+            '',
+        }
+      },
+    }),
+    // Import/export — adds admin-side buttons that emit CSV/JSON of
+    // collection docs (and bulk-import in the same format). Streams the
+    // download response, so it works fine on workerd without local fs.
+    importExportPlugin({
+      collections: [
+        'case-studies',
+        'community-help',
+        'docs',
+        'pages',
+        'partners',
+        'posts',
+      ],
+      overrideExportCollection: ({ collection }) => ({
+        ...collection,
+        labels: {
+          singular: { en: 'Export', bg: 'Експорт' },
+          plural: { en: 'Exports', bg: 'Експорти' },
+        },
+      }),
+      overrideImportCollection: ({ collection }) => ({
+        ...collection,
+        labels: {
+          singular: { en: 'Import', bg: 'Импорт' },
+          plural: { en: 'Imports', bg: 'Импорти' },
+        },
+      }),
+    }),
+    // MCP server endpoint — exposes the Payload local API to MCP clients
+    // (Claude Code, IDE agents). Mounts at /api/mcp under the worker.
+    mcpPlugin({
+      overrideApiKeyCollection: (collection) => ({
+        ...collection,
+        labels: {
+          singular: { en: 'API Key', bg: 'API ключ' },
+          plural: { en: 'API Keys', bg: 'API ключове' },
+        },
+        admin: {
+          ...(collection.admin ?? {}),
+          group: { en: 'MCP', bg: 'MCP' },
+        },
+      }),
+    }),
+    // Sentry error monitoring — opt-in: the plugin no-ops when SENTRY_DSN
+    // is unset, so adding it here doesn't break local dev.
+    ...(process.env.SENTRY_DSN
+      ? [sentryPlugin({ Sentry: { dsn: process.env.SENTRY_DSN } as any })]
+      : []),
     // [cloudflare] R2 storage for media uploads (replaces Vercel Blob).
     // Public read URLs require either Cloudflare R2's public bucket setting
     // or a Worker route that fetches from the bucket; configure on the R2
@@ -612,7 +790,7 @@ export default buildConfig({
   typescript: {
     outputFile: path.resolve(dirname, 'payload-types.ts'),
   },
-})
+}))
 
 // [cloudflare] Wrangler-proxy helper for `payload migrate`/`generate:*` CLI
 // runs. Mirrors templates/with-cloudflare-d1/src/payload.config.ts.

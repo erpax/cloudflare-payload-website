@@ -4,15 +4,15 @@ import deepMerge from '@utilities/deepMerge'
 
 export const appearanceOptions = {
   default: {
-    label: 'Default',
+    label: ({ t }) => t('website:fields:link:line7:label'),
     value: 'default',
   },
   primary: {
-    label: 'Primary Button',
+    label: ({ t }) => t('website:fields:link:line11:label'),
     value: 'primary',
   },
   secondary: {
-    label: 'Secondary Button',
+    label: ({ t }) => t('website:fields:link:line15:label'),
     value: 'secondary',
   },
 }
@@ -51,11 +51,11 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
             defaultValue: 'reference',
             options: [
               {
-                label: 'Internal link',
+                label: ({ t }) => t('website:fields:link:line54:label'),
                 value: 'reference',
               },
               {
-                label: 'Custom URL',
+                label: ({ t }) => t('website:fields:link:line58:label'),
                 value: 'custom',
               },
             ],
@@ -69,7 +69,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
               },
               width: '25%',
             },
-            label: 'Open in new tab',
+            label: ({ t }) => t('website:fields:link:newTab:label'),
           },
         ],
       },
@@ -83,7 +83,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'reference',
       },
-      label: 'Document to link to',
+      label: ({ t }) => t('website:fields:link:reference:label'),
       maxDepth: 2,
       relationTo: ['pages', 'posts', 'case-studies'],
       required: true,
@@ -94,7 +94,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       admin: {
         condition: (_, siblingData) => siblingData?.type === 'custom',
       },
-      label: 'Custom URL',
+      label: ({ t }) => t('website:fields:link:url:label'),
       required: true,
     },
   ]
@@ -110,7 +110,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
           admin: {
             width: '25%',
           },
-          label: 'Label',
+          label: ({ t }) => t('website:fields:link:label:label'),
           required: true,
         },
         {
@@ -153,7 +153,7 @@ const link: LinkType = ({ appearances, disableLabel = false, overrides = {} } = 
       // [cloudflare/d1] See `type` field above — same 63-char overflow.
       enumName: 'enum_cms_link_appearance',
       admin: {
-        description: 'Choose how the link should be rendered.',
+        description: ({ t }) => t('website:fields:link:appearance:description'),
       },
       defaultValue: 'default',
       options: appearanceOptionsToUse,

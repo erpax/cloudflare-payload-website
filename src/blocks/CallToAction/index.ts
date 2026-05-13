@@ -17,11 +17,11 @@ export const CallToAction: Block = {
           defaultValue: 'buttons',
           options: [
             {
-              label: 'Buttons',
+              label: ({ t }) => t('website:blocks:CallToAction:style:label'),
               value: 'buttons',
             },
             {
-              label: 'Banner',
+              label: ({ t }) => t('website:blocks:CallToAction:style:label'),
               value: 'banner',
             },
           ],
@@ -69,13 +69,13 @@ export const CallToAction: Block = {
           admin: {
             condition: (_, { style }) => style === 'banner',
           },
-          label: 'Enable Gradient Background',
+          label: ({ t }) => t('website:blocks:CallToAction:gradientBackground:label'),
         },
       ],
     }),
   ],
   labels: {
-    plural: 'Calls to Action',
-    singular: 'Call to Action',
+    plural: ({ t }) => t('website:blocks:CallToAction:cta:plural'),
+    singular: ({ t }) => t('website:blocks:CallToAction:cta:singular'),
   },
 }

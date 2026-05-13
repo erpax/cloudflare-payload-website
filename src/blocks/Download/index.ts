@@ -19,7 +19,7 @@ export const DownloadBlock: Block = {
               name: 'file',
               type: 'upload',
               admin: {
-                description: 'The file to download',
+                description: ({ t }) => t('website:blocks:Download:file:description'),
                 width: '50%',
               },
               relationTo: 'media',
@@ -29,7 +29,7 @@ export const DownloadBlock: Block = {
               name: 'thumbnail',
               type: 'upload',
               admin: {
-                description: 'Thumbnail for the download. Defaults to file for images',
+                description: ({ t }) => t('website:blocks:Download:thumbnail:description'),
                 width: '50%',
               },
               relationTo: 'media',
@@ -80,17 +80,17 @@ export const DownloadBlock: Block = {
           },
         },
       ],
-      label: 'Downloads',
+      label: ({ t }) => t('website:blocks:Download:copyToClipboardText:label'),
       labels: {
-        plural: 'Downloads',
-        singular: 'Download',
+        plural: ({ t }) => t('website:blocks:Download:downloadBlock:plural'),
+        singular: ({ t }) => t('website:blocks:Download:downloadBlock:singular'),
       },
       minRows: 1,
     },
   ],
   interfaceName: 'DownloadBlockType',
   labels: {
-    plural: 'Download Blocks',
-    singular: 'Download Block',
+    plural: ({ t }) => t('website:blocks:Download:downloadBlock:plural'),
+    singular: ({ t }) => t('website:blocks:Download:downloadBlock:singular'),
   },
 }

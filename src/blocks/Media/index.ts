@@ -14,11 +14,11 @@ export const MediaBlock: Block = {
           defaultValue: 'default',
           options: [
             {
-              label: 'Default',
+              label: ({ t }) => t('website:blocks:Media:position:label'),
               value: 'default',
             },
             {
-              label: 'Wide',
+              label: ({ t }) => t('website:blocks:Media:position:label'),
               value: 'wide',
             },
           ],

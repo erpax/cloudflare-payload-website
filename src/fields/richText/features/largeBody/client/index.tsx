@@ -26,7 +26,7 @@ export const LargeBodyFeatureClient = createClientFeature({
             Icon: LargeBodyIcon,
             key: 'largeBody',
             keywords: ['largeBody', 'body', 'lb'],
-            label: 'Large Body',
+            label: ({ t }) => t('website:fields:richText:features:largeBody:client:line29:label'),
             onSelect: () => {
               const selection = $getSelection()
               if ($isRangeSelection(selection)) {
@@ -36,7 +36,7 @@ export const LargeBodyFeatureClient = createClientFeature({
           },
         ],
         key: 'Basic',
-        label: 'Basic',
+        label: ({ t }) => t('website:fields:richText:features:largeBody:client:line39:label'),
       },
     ],
   },

@@ -20,7 +20,6 @@ export default async function Layout({ children }: { children: React.ReactNode }
       <Header {...mainMenu} topBar={topBar} />
       <div>
         {children}
-        <div id="docsearch" />
         <Footer {...footer} />
       </div>
     </React.Fragment>

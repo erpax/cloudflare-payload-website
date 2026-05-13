@@ -50,7 +50,7 @@ export const CaseStudyParallax: Block = {
                   name: 'tabLabel',
                   type: 'text',
                   admin: {
-                    description: 'A label for the navigation tab at the bottom of the parallax',
+                    description: ({ t }) => t('website:blocks:CaseStudyParallax:tabLabel:description'),
                   },
                   required: true,
                 },
@@ -70,7 +70,7 @@ export const CaseStudyParallax: Block = {
     }),
   ],
   labels: {
-    plural: 'Case Study Parallax',
-    singular: 'Case Study Parallax',
+    plural: ({ t }) => t('website:blocks:CaseStudyParallax:caseStudyParallax:plural'),
+    singular: ({ t }) => t('website:blocks:CaseStudyParallax:caseStudyParallax:singular'),
   },
 }

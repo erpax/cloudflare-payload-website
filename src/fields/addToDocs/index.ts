@@ -7,7 +7,7 @@ export const addToDocs: Field = {
     components: {
       Label: '@root/fields/addToDocs/Label#Label',
     },
-    description: 'Paste this code into the docs to link to this post',
+    description: ({ t }) => t('website:fields:addToDocs:addToDocs:description'),
     position: 'sidebar',
   },
   hooks: {

@@ -5,11 +5,12 @@ import { revalidatePath } from 'next/cache'
 
 export const TopBar: GlobalConfig = {
   slug: 'topBar',
+  label: { en: 'Top Bar', bg: 'Горна лента' },
   fields: [
     {
       name: 'enableTopBar',
       type: 'checkbox',
-      label: 'Enable Top Bar?',
+      label: ({ t }) => t('website:globals:TopBar:enableTopBar:label'),
     },
     {
       name: 'message',
@@ -17,7 +18,7 @@ export const TopBar: GlobalConfig = {
       admin: {
         condition: (_, siblingData) => siblingData.enableTopBar,
       },
-      label: 'Message',
+      label: ({ t }) => t('website:globals:TopBar:message:label'),
       required: true,
     },
     link({

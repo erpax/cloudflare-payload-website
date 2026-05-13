@@ -53,7 +53,7 @@ export const Slider: Block = {
             {
               name: 'enableLink',
               type: 'checkbox',
-              label: 'Enable Link',
+              label: ({ t }) => t('website:blocks:Slider:enableLink:label'),
             },
             link({
               appearances: false,

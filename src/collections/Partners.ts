@@ -15,7 +15,7 @@ export const Partners: CollectionConfig = {
     update: isAdmin,
   },
   admin: {
-    group: 'Partner Program',
+    group: { en: 'Partner Program', bg: 'Партньорска програма' },
     livePreview: {
       url: ({ data }) => formatPreviewURL('partners', data),
     },
@@ -45,13 +45,13 @@ export const Partners: CollectionConfig = {
     {
       name: 'name',
       type: 'text',
-      label: 'Agency Name',
+      label: ({ t }) => t('website:collections:Partners:name:label'),
       required: true,
     },
     {
       name: 'website',
       type: 'text',
-      label: 'Website URL',
+      label: ({ t }) => t('website:collections:Partners:website:label'),
       required: true,
     },
     {
@@ -60,7 +60,7 @@ export const Partners: CollectionConfig = {
       access: {
         read: isAdminFieldLevel,
       },
-      label: 'Contact Email',
+      label: ({ t }) => t('website:collections:Partners:email:label'),
       required: true,
     },
     slugField('name', {
@@ -73,17 +73,17 @@ export const Partners: CollectionConfig = {
       name: 'agency_status',
       type: 'select',
       admin: {
-        description: 'Set to inactive to hide this partner from the directory.',
+        description: ({ t }) => t('website:collections:Partners:agency_status:description'),
         position: 'sidebar',
       },
       defaultValue: 'active',
       options: [
         {
-          label: 'Active',
+          label: ({ t }) => t('website:collections:Partners:agency_status:label'),
           value: 'active',
         },
         {
-          label: 'Inactive',
+          label: ({ t }) => t('website:collections:Partners:line86:label'),
           value: 'inactive',
         },
       ],
@@ -97,7 +97,7 @@ export const Partners: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
-      label: 'HubSpot ID',
+      label: ({ t }) => t('website:collections:Partners:hubspotID:label'),
     },
     {
       name: 'logo',
@@ -117,7 +117,7 @@ export const Partners: CollectionConfig = {
         position: 'sidebar',
         readOnly: true,
       },
-      label: 'Featured',
+      label: ({ t }) => t('website:collections:Partners:featured:label'),
     },
     {
       name: 'topContributor',
@@ -125,7 +125,7 @@ export const Partners: CollectionConfig = {
       admin: {
         position: 'sidebar',
       },
-      label: 'Top Contributor?',
+      label: ({ t }) => t('website:collections:Partners:topContributor:label'),
     },
     {
       type: 'tabs',
@@ -137,7 +137,7 @@ export const Partners: CollectionConfig = {
               name: 'bannerImage',
               type: 'upload',
               admin: {
-                description: '1600 x 800px recommended',
+                description: ({ t }) => t('website:collections:Partners:bannerImage:description'),
               },
               relationTo: 'media',
               required: true,
@@ -145,19 +145,19 @@ export const Partners: CollectionConfig = {
             {
               name: 'overview',
               type: 'richText',
-              label: 'Overview',
+              label: ({ t }) => t('website:collections:Partners:overview:label'),
               required: true,
             },
             {
               name: 'services',
               type: 'richText',
-              label: 'Services',
+              label: ({ t }) => t('website:collections:Partners:services:label'),
               required: true,
             },
             {
               name: 'idealProject',
               type: 'richText',
-              label: 'Ideal Project',
+              label: ({ t }) => t('website:collections:Partners:idealProject:label'),
               required: true,
             },
             {
@@ -184,15 +184,15 @@ export const Partners: CollectionConfig = {
                       },
                       options: [
                         {
-                          label: 'Discussion',
+                          label: ({ t }) => t('website:collections:Partners:type:label'),
                           value: 'discussion',
                         },
                         {
-                          label: 'Pull Request',
+                          label: ({ t }) => t('website:collections:Partners:line191:label'),
                           value: 'pr',
                         },
                         {
-                          label: 'Issue',
+                          label: ({ t }) => t('website:collections:Partners:line195:label'),
                           value: 'issue',
                         },
                       ],
@@ -219,7 +219,7 @@ export const Partners: CollectionConfig = {
                   ],
                 },
               ],
-              label: 'Contributions',
+              label: ({ t }) => t('website:collections:Partners:number:label'),
             },
             {
               name: 'projects',
@@ -241,11 +241,11 @@ export const Partners: CollectionConfig = {
                   required: true,
                 },
               ],
-              label: 'Projects built with Payload',
+              label: ({ t }) => t('website:collections:Partners:link:label'),
               maxRows: 4,
             },
           ],
-          label: 'Content',
+          label: ({ t }) => t('website:collections:Partners:link:label'),
         },
         {
           fields: [
@@ -295,30 +295,30 @@ export const Partners: CollectionConfig = {
                       admin: {
                         width: '50%',
                       },
-                      label: 'Platform',
+                      label: ({ t }) => t('website:collections:Partners:platform:label'),
                       options: [
                         {
-                          label: 'LinkedIn',
+                          label: ({ t }) => t('website:collections:Partners:platform:label'),
                           value: 'linkedin',
                         },
                         {
-                          label: 'Twitter',
+                          label: ({ t }) => t('website:collections:Partners:line305:label'),
                           value: 'twitter',
                         },
                         {
-                          label: 'Facebook',
+                          label: ({ t }) => t('website:collections:Partners:line309:label'),
                           value: 'facebook',
                         },
                         {
-                          label: 'Instagram',
+                          label: ({ t }) => t('website:collections:Partners:line313:label'),
                           value: 'instagram',
                         },
                         {
-                          label: 'YouTube',
+                          label: ({ t }) => t('website:collections:Partners:line317:label'),
                           value: 'youtube',
                         },
                         {
-                          label: 'GitHub',
+                          label: ({ t }) => t('website:collections:Partners:line321:label'),
                           value: 'github',
                         },
                       ],
@@ -330,16 +330,16 @@ export const Partners: CollectionConfig = {
                       admin: {
                         width: '50%',
                       },
-                      label: 'URL',
+                      label: ({ t }) => t('website:collections:Partners:url:label'),
                       required: true,
                     },
                   ],
                 },
               ],
-              label: 'Social Media Links',
+              label: ({ t }) => t('website:collections:Partners:line339:label'),
             },
           ],
-          label: 'Details',
+          label: ({ t }) => t('website:collections:Partners:line342:label'),
         },
       ],
     },
@@ -354,8 +354,8 @@ export const Partners: CollectionConfig = {
     ],
   },
   labels: {
-    plural: 'Partners',
-    singular: 'Partner',
+    plural: ({ t }) => t('website:collections:Partners:partners:plural'),
+    singular: ({ t }) => t('website:collections:Partners:partners:singular'),
   },
   versions: {
     drafts: true,

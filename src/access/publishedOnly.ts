@@ -1,7 +1,7 @@
 import type { Access } from 'payload'
 
 export const publishedOnly: Access = ({ req: { user } }) => {
-  if (user?.roles?.includes('admin')) {
+  if ((user as { roles?: string[] } | null)?.roles?.includes('admin')) {
     return true
   }
 

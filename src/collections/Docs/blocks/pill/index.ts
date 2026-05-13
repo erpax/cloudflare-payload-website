@@ -7,9 +7,9 @@ export const PillBlock: Block = {
       name: 'text',
       type: 'text',
       required: true,
-      label: 'Text',
+      label: ({ t }) => t('website:collections:Docs:blocks:pill:text:label'),
       admin: {
-        description: 'E.g., "1. DEFINE WORK" or "2. QUEUE JOBS"',
+        description: ({ t }) => t('website:collections:Docs:blocks:pill:text:description'),
       },
     },
   ],

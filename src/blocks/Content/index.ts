@@ -12,14 +12,14 @@ export const Content: Block = {
         {
           name: 'useLeadingHeader',
           type: 'checkbox',
-          label: 'Use Leading Header',
+          label: ({ t }) => t('website:blocks:Content:useLeadingHeader:label'),
         },
         richText({
           name: 'leadingHeader',
           admin: {
             condition: (_, siblingData) => siblingData.useLeadingHeader,
           },
-          label: 'Leading Header',
+          label: ({ t }) => t('website:blocks:Content:leadingHeader:label'),
         }),
         {
           name: 'layout',
@@ -27,23 +27,23 @@ export const Content: Block = {
           defaultValue: 'oneColumn',
           options: [
             {
-              label: 'One Column',
+              label: ({ t }) => t('website:blocks:Content:layout:label'),
               value: 'oneColumn',
             },
             {
-              label: 'Two Columns',
+              label: ({ t }) => t('website:blocks:Content:layout:label'),
               value: 'twoColumns',
             },
             {
-              label: 'Two Thirds + One Third',
+              label: ({ t }) => t('website:blocks:Content:line38:label'),
               value: 'twoThirdsOneThird',
             },
             {
-              label: 'Half + Half',
+              label: ({ t }) => t('website:blocks:Content:line42:label'),
               value: 'halfAndHalf',
             },
             {
-              label: 'Three Columns',
+              label: ({ t }) => t('website:blocks:Content:line46:label'),
               value: 'threeColumns',
             },
           ],

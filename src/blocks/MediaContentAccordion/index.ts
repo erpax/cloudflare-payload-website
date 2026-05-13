@@ -13,16 +13,16 @@ export const MediaContentAccordion: Block = {
           name: 'alignment',
           type: 'select',
           admin: {
-            description: 'Choose how to align the content for this block.',
+            description: ({ t }) => t('website:blocks:MediaContentAccordion:alignment:description'),
           },
           defaultValue: 'contentMedia',
           options: [
             {
-              label: 'Content + Media',
+              label: ({ t }) => t('website:blocks:MediaContentAccordion:alignment:label'),
               value: 'contentMedia',
             },
             {
-              label: 'Media + Content',
+              label: ({ t }) => t('website:blocks:MediaContentAccordion:line25:label'),
               value: 'mediaContent',
             },
           ],
@@ -59,21 +59,21 @@ export const MediaContentAccordion: Block = {
                   name: 'position',
                   type: 'select',
                   admin: {
-                    description: 'Choose how to position the media itself.',
+                    description: ({ t }) => t('website:blocks:MediaContentAccordion:position:description'),
                     width: '50%',
                   },
                   defaultValue: 'normal',
                   options: [
                     {
-                      label: 'Normal',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:position:label'),
                       value: 'normal',
                     },
                     {
-                      label: 'Inset',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:line72:label'),
                       value: 'inset',
                     },
                     {
-                      label: 'Wide',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:line76:label'),
                       value: 'wide',
                     },
                   ],
@@ -82,21 +82,21 @@ export const MediaContentAccordion: Block = {
                   name: 'background',
                   type: 'select',
                   admin: {
-                    description: 'Select the background you want to sit behind the media.',
+                    description: ({ t }) => t('website:blocks:MediaContentAccordion:background:description'),
                     width: '50%',
                   },
                   defaultValue: 'none',
                   options: [
                     {
-                      label: 'None',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:background:label'),
                       value: 'none',
                     },
                     {
-                      label: 'Gradient',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:line95:label'),
                       value: 'gradient',
                     },
                     {
-                      label: 'Scanlines',
+                      label: ({ t }) => t('website:blocks:MediaContentAccordion:line99:label'),
                       value: 'scanlines',
                     },
                   ],

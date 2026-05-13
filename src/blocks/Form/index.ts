@@ -24,7 +24,7 @@ export const Form: Block = {
   },
   interfaceName: 'FormBlock',
   labels: {
-    plural: 'Form Blocks',
-    singular: 'Form Block',
+    plural: ({ t }) => t('website:blocks:Form:form:plural'),
+    singular: ({ t }) => t('website:blocks:Form:form:singular'),
   },
 }

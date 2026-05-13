@@ -5,6 +5,10 @@ import { isAdminOrSelf, isAdminOrSelfFieldLevel } from '../access/isAdminOrSelf'
 
 export const Users: CollectionConfig = {
   slug: 'users',
+  labels: {
+    singular: { en: 'User', bg: 'Потребител' },
+    plural: { en: 'Users', bg: 'Потребители' },
+  },
   access: {
     create: isAdmin,
     delete: isAdminOrSelf,
@@ -58,9 +62,9 @@ export const Users: CollectionConfig = {
       name: 'twitter',
       type: 'text',
       admin: {
-        description: 'Example: `payloadcms`',
+        description: ({ t }) => t('website:collections:Users:twitter:description'),
       },
-      label: 'Twitter Handle',
+      label: ({ t }) => t('website:collections:Users:twitter:label'),
     },
     {
       name: 'photo',

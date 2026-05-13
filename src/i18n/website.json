@@ -1,0 +1,1626 @@
+{
+  "en": {
+    "collections": {
+      "CaseStudies": {
+        "url": {
+          "label": "URL"
+        }
+      },
+      "Categories": {
+        "name": {
+          "label": "Name"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "headline": {
+          "label": "Headline"
+        },
+        "description": {
+          "label": "Description"
+        },
+        "posts": {
+          "label": "Posts"
+        }
+      },
+      "CommunityHelp": {
+        "communityHelpType": {
+          "label": "Discord Thread"
+        },
+        "line36": {
+          "label": "GitHub Discussion"
+        },
+        "githubID": {
+          "label": "GitHub ID"
+        },
+        "discordID": {
+          "label": "Discord ID"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "community-help": {
+          "plural": "Community Helps",
+          "singular": "Community Help"
+        }
+      },
+      "Docs": {
+        "blocks": {
+          "pill": {
+            "text": {
+              "label": "Text",
+              "description": "E.g., \"1. DEFINE WORK\" or \"2. QUEUE JOBS\""
+            }
+          }
+        },
+        "content": {
+          "label": "Content"
+        },
+        "version": {
+          "label": "Meta"
+        }
+      },
+      "Media": {
+        "darkModeFallback": {
+          "description": "Choose an upload to render if the visitor is using dark mode."
+        }
+      },
+      "Pages": {
+        "noindex": {
+          "label": "No Index"
+        },
+        "line54": {
+          "label": "Hero"
+        },
+        "line92": {
+          "label": "Content"
+        }
+      },
+      "PartnerFilters": {
+        "line15": {
+          "group": "Partner Program"
+        },
+        "value": {
+          "description": "Must contain only lowercase letters, numbers, hyphens, and underscores",
+          "label": "Value"
+        }
+      },
+      "Partners": {
+        "partners": {
+          "group": "Partner Program",
+          "plural": "Partners",
+          "singular": "Partner"
+        },
+        "name": {
+          "label": "Agency Name"
+        },
+        "website": {
+          "label": "Website URL"
+        },
+        "email": {
+          "label": "Contact Email"
+        },
+        "agency_status": {
+          "description": "Set to inactive to hide this partner from the directory.",
+          "label": "Active"
+        },
+        "line86": {
+          "label": "Inactive"
+        },
+        "hubspotID": {
+          "label": "HubSpot ID"
+        },
+        "featured": {
+          "label": "Featured"
+        },
+        "topContributor": {
+          "label": "Top Contributor?"
+        },
+        "bannerImage": {
+          "description": "1600 x 800px recommended"
+        },
+        "overview": {
+          "label": "Overview"
+        },
+        "services": {
+          "label": "Services"
+        },
+        "idealProject": {
+          "label": "Ideal Project"
+        },
+        "type": {
+          "label": "Discussion"
+        },
+        "line191": {
+          "label": "Pull Request"
+        },
+        "line195": {
+          "label": "Issue"
+        },
+        "number": {
+          "label": "Contributions"
+        },
+        "link": {
+          "label": "Content"
+        },
+        "platform": {
+          "label": "LinkedIn"
+        },
+        "line305": {
+          "label": "Twitter"
+        },
+        "line309": {
+          "label": "Facebook"
+        },
+        "line313": {
+          "label": "Instagram"
+        },
+        "line317": {
+          "label": "YouTube"
+        },
+        "line321": {
+          "label": "GitHub"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "line339": {
+          "label": "Social Media Links"
+        },
+        "line342": {
+          "label": "Details"
+        }
+      },
+      "Posts": {
+        "featuredMedia": {
+          "label": "Video Embed"
+        },
+        "videoUrl": {
+          "label": "Video URL"
+        },
+        "dynamicThumbnail": {
+          "label": "Use dynamic thumbnail"
+        },
+        "website": {
+          "label": "Guest Author Socials"
+        }
+      },
+      "ReusableContent": {
+        "reusable-content": {
+          "plural": "Reusable Contents",
+          "singular": "Reusable Content"
+        }
+      },
+      "Users": {
+        "twitter": {
+          "description": "Example: `payloadcms`",
+          "label": "Twitter Handle"
+        }
+      }
+    },
+    "blocks": {
+      "Banner": {
+        "type": {
+          "label": "Default"
+        },
+        "line27": {
+          "label": "Success"
+        },
+        "line31": {
+          "label": "Warning"
+        },
+        "line35": {
+          "label": "Error"
+        }
+      },
+      "BlogMarkdown": {
+        "blogMarkdown": {
+          "plural": "Markdown Blocks",
+          "singular": "Markdown"
+        }
+      },
+      "CallToAction": {
+        "style": {
+          "label": "Banner"
+        },
+        "gradientBackground": {
+          "label": "Enable Gradient Background"
+        },
+        "cta": {
+          "plural": "Calls to Action",
+          "singular": "Call to Action"
+        }
+      },
+      "CardGrid": {
+        "cardGridFields": {
+          "description": "These links will be placed above the card grid as calls-to-action."
+        },
+        "revealDescription": {
+          "label": "Reveal descriptions on hover?"
+        }
+      },
+      "CaseStudyCards": {
+        "pixels": {
+          "label": "Show Pixel Background?"
+        },
+        "caseStudyCards": {
+          "plural": "Case Study Cards",
+          "singular": "Case Study Cards"
+        }
+      },
+      "CaseStudyParallax": {
+        "tabLabel": {
+          "description": "A label for the navigation tab at the bottom of the parallax"
+        },
+        "caseStudyParallax": {
+          "plural": "Case Study Parallax",
+          "singular": "Case Study Parallax"
+        }
+      },
+      "Code": {
+        "language": {
+          "label": "JavaScript"
+        },
+        "line26": {
+          "label": "TypeScript"
+        }
+      },
+      "CodeFeature": {
+        "forceDarkBackground": {
+          "description": "Check this box to force this block to have a dark background."
+        },
+        "alignment": {
+          "description": "Choose how to align the content for this block.",
+          "label": "Content + Code"
+        },
+        "line38": {
+          "label": "Code + Content"
+        },
+        "language": {
+          "label": "JavaScript"
+        },
+        "line79": {
+          "label": "TypeScript"
+        },
+        "label": {
+          "label": "Tab Label"
+        }
+      },
+      "ComparisonTable": {
+        "introContent": {
+          "label": "Intro Content"
+        },
+        "style": {
+          "label": "Centered"
+        },
+        "tableTitle": {
+          "placeholder": "Compare Features",
+          "label": "Title"
+        },
+        "columnOneHeader": {
+          "placeholder": "Payload",
+          "label": "Column One Header"
+        },
+        "columnTwoHeader": {
+          "placeholder": "The other guys",
+          "label": "Column Two Header"
+        },
+        "line75": {
+          "label": "Table Header"
+        },
+        "feature": {
+          "placeholder": "Feature"
+        },
+        "line141": {
+          "label": "Rows"
+        }
+      },
+      "Content": {
+        "useLeadingHeader": {
+          "label": "Use Leading Header"
+        },
+        "leadingHeader": {
+          "label": "Leading Header"
+        },
+        "layout": {
+          "label": "Two Columns"
+        },
+        "line38": {
+          "label": "Two Thirds + One Third"
+        },
+        "line42": {
+          "label": "Half + Half"
+        },
+        "line46": {
+          "label": "Three Columns"
+        }
+      },
+      "ContentGrid": {
+        "style": {
+          "label": "Style"
+        },
+        "content": {
+          "label": "Content"
+        }
+      },
+      "Download": {
+        "file": {
+          "description": "The file to download"
+        },
+        "thumbnail": {
+          "description": "Thumbnail for the download. Defaults to file for images"
+        },
+        "copyToClipboardText": {
+          "label": "Downloads"
+        },
+        "downloadBlock": {
+          "plural": "Download Blocks",
+          "singular": "Download Block"
+        }
+      },
+      "ExampleTabs": {
+        "CodeExampleBlock": {
+          "plural": "Code Examples",
+          "singular": "Code Example"
+        },
+        "MediaExampleBlock": {
+          "plural": "Media Examples",
+          "singular": "Media Example"
+        },
+        "exampleTabs": {
+          "plural": "Example Tabs",
+          "singular": "Example Tabs"
+        }
+      },
+      "Form": {
+        "form": {
+          "plural": "Form Blocks",
+          "singular": "Form Block"
+        }
+      },
+      "HoverCards": {
+        "hideBackground": {
+          "label": "Hide Background"
+        }
+      },
+      "HoverHighlights": {
+        "bottom": {
+          "label": "Media"
+        },
+        "hoverHighlights": {
+          "plural": "Hover Highlights Blocks",
+          "singular": "Hover Highlights Block"
+        }
+      },
+      "Media": {
+        "position": {
+          "label": "Wide"
+        }
+      },
+      "MediaContent": {
+        "alignment": {
+          "description": "Choose how to align the content for this block.",
+          "label": "Content + Media"
+        },
+        "line30": {
+          "label": "Media + Content"
+        },
+        "mediaWidth": {
+          "description": "Choose how wide the media should be.",
+          "label": "Stretch To Edge"
+        },
+        "line49": {
+          "label": "Fit to Margin"
+        }
+      },
+      "MediaContentAccordion": {
+        "alignment": {
+          "description": "Choose how to align the content for this block.",
+          "label": "Content + Media"
+        },
+        "line25": {
+          "label": "Media + Content"
+        },
+        "position": {
+          "description": "Choose how to position the media itself.",
+          "label": "Normal"
+        },
+        "line72": {
+          "label": "Inset"
+        },
+        "line76": {
+          "label": "Wide"
+        },
+        "background": {
+          "description": "Select the background you want to sit behind the media.",
+          "label": "None"
+        },
+        "line95": {
+          "label": "Gradient"
+        },
+        "line99": {
+          "label": "Scanlines"
+        }
+      },
+      "Pricing": {
+        "price": {
+          "label": "Price per month"
+        },
+        "title": {
+          "label": "Title"
+        },
+        "icon": {
+          "label": "X"
+        }
+      },
+      "Slider": {
+        "enableLink": {
+          "label": "Enable Link"
+        }
+      },
+      "Statement": {
+        "assetType": {
+          "label": "Code"
+        },
+        "media": {
+          "label": "Media"
+        },
+        "code": {
+          "label": "Code"
+        },
+        "mediaWidth": {
+          "label": "Small"
+        },
+        "line68": {
+          "label": "Medium"
+        },
+        "line72": {
+          "label": "Large"
+        },
+        "line76": {
+          "label": "Full"
+        },
+        "backgroundGlow": {
+          "label": "Colorful"
+        },
+        "line96": {
+          "label": "White"
+        },
+        "statement": {
+          "plural": "Statements",
+          "singular": "Statement"
+        }
+      },
+      "Steps": {
+        "steps": {
+          "plural": "Steps Blocks",
+          "singular": "Steps Block"
+        }
+      },
+      "StickyHighlights": {
+        "type": {
+          "label": "Media"
+        },
+        "stickyHighlights": {
+          "plural": "Sticky Highlights Blocks",
+          "singular": "Sticky Highlights Block"
+        }
+      }
+    },
+    "globals": {
+      "GetStarted": {
+        "label": {
+          "label": "Tab Label"
+        },
+        "heading": {
+          "label": "Page Heading"
+        },
+        "get-started": {
+          "plural": "Tabs",
+          "singular": "Tab"
+        },
+        "tabs": {
+          "label": "Tabs"
+        },
+        "sidebar": {
+          "label": "Sidebar Content"
+        },
+        "sidebarLinks": {
+          "label": "Sidebar"
+        }
+      },
+      "MainMenu": {
+        "line53": {
+          "label": "Direct Link"
+        },
+        "style": {
+          "label": "Featured"
+        },
+        "line100": {
+          "label": "List"
+        },
+        "line181": {
+          "label": "Dropdown Menu"
+        },
+        "line184": {
+          "label": "Main Menu Items"
+        },
+        "menuCta": {
+          "label": "Menu CTA Button"
+        }
+      },
+      "PartnerProgram": {
+        "partner-program": {
+          "group": "Partner Program",
+          "plural": "Blocks",
+          "singular": "Block"
+        },
+        "contactForm": {
+          "description": "Select the form that should be used for the contact form."
+        },
+        "richText": {
+          "label": "Hero Text"
+        },
+        "line137": {
+          "label": "Before Directory Blocks"
+        },
+        "line173": {
+          "label": "After Directory Blocks"
+        },
+        "line186": {
+          "label": "Partner Program Directory"
+        }
+      },
+      "TopBar": {
+        "enableTopBar": {
+          "label": "Enable Top Bar?"
+        },
+        "message": {
+          "label": "Message"
+        }
+      }
+    },
+    "fields": {
+      "addToDocs": {
+        "addToDocs": {
+          "description": "Paste this code into the docs to link to this post"
+        }
+      },
+      "blockFields": {
+        "theme": {
+          "description": "Leave blank for system default",
+          "label": "Light"
+        },
+        "line24": {
+          "label": "Dark"
+        },
+        "background": {
+          "label": "Solid"
+        },
+        "line42": {
+          "label": "Transparent"
+        },
+        "line46": {
+          "label": "Gradient Up"
+        },
+        "line50": {
+          "label": "Gradient Down"
+        },
+        "line88": {
+          "label": "Settings"
+        }
+      },
+      "codeBlips": {
+        "line35": {
+          "plural": "Blips"
+        },
+        "line36": {
+          "singular": "Blip"
+        }
+      },
+      "hero": {
+        "type": {
+          "label": "Content and Media"
+        },
+        "line27": {
+          "label": "Centered Content"
+        },
+        "line31": {
+          "label": "Form"
+        },
+        "line35": {
+          "label": "Home"
+        },
+        "line39": {
+          "label": "Home New"
+        },
+        "line43": {
+          "label": "Livestream"
+        },
+        "line47": {
+          "label": "Gradient"
+        },
+        "line51": {
+          "label": "3.0"
+        },
+        "enableBreadcrumbsBar": {
+          "label": "Enable Breadcrumbs Bar"
+        },
+        "line81": {
+          "plural": "Links"
+        },
+        "line82": {
+          "singular": "Link"
+        },
+        "line87": {
+          "label": "Breadcrumbs Bar"
+        },
+        "enableAnnouncement": {
+          "label": "Enable Announcement?"
+        },
+        "primaryButtons": {
+          "label": "Primary Buttons"
+        },
+        "threeCTA": {
+          "label": "Newsletter Sign Up"
+        },
+        "line173": {
+          "label": "Buttons"
+        },
+        "description": {
+          "placeholder": "Sign up to receive periodic updates and feature releases to your email."
+        },
+        "line210": {
+          "plural": "Buttons"
+        },
+        "line211": {
+          "singular": "Button"
+        },
+        "secondaryButtons": {
+          "label": "Secondary Buttons"
+        },
+        "logoMedia": {
+          "label": "Media"
+        }
+      },
+      "link": {
+        "line7": {
+          "label": "Default"
+        },
+        "line11": {
+          "label": "Primary Button"
+        },
+        "line15": {
+          "label": "Secondary Button"
+        },
+        "line54": {
+          "label": "Internal link"
+        },
+        "line58": {
+          "label": "Custom URL"
+        },
+        "newTab": {
+          "label": "Open in new tab"
+        },
+        "reference": {
+          "label": "Document to link to"
+        },
+        "url": {
+          "label": "Custom URL"
+        },
+        "label": {
+          "label": "Label"
+        },
+        "appearance": {
+          "description": "Choose how the link should be rendered."
+        }
+      },
+      "livestreamFields": {
+        "id": {
+          "label": "YouTube ID"
+        },
+        "date": {
+          "label": "Date / Time (GMT)"
+        }
+      },
+      "richText": {
+        "features": {
+          "label": {
+            "client": {
+              "line29": {
+                "label": "Label"
+              },
+              "line39": {
+                "label": "Basic"
+              }
+            }
+          },
+          "largeBody": {
+            "client": {
+              "line29": {
+                "label": "Large Body"
+              },
+              "line39": {
+                "label": "Basic"
+              }
+            }
+          }
+        }
+      },
+      "slug": {
+        "slug": {
+          "label": "Slug"
+        }
+      }
+    },
+    "components": {
+      "AfterNavActions": {
+        "title": "Admin Actions"
+      },
+      "BeforeDashboard": {
+        "heading": "Payload Release Notes",
+        "subheading": "Use this component to sync Payload release notes to a draft blog post assigned to the Release Notes category.",
+        "pullLatest": "Pull Latest Release",
+        "pullLatestLoading": "Pulling latest...",
+        "pullSpecific": "Pull Specific Release",
+        "pullSpecificLoading": "Pulling specific...",
+        "versionPlaceholder": "e.g. 3.1.0",
+        "toastLoading": "Creating draft release post...",
+        "toastSuccess": "Draft release post created"
+      },
+      "SyncToAlgolia": {
+        "label": "Sync Search Index + Community Help",
+        "loading": "Syncing...",
+        "success": "Search index synced with Community Help threads",
+        "failure": "Failed to sync the search index with Community Help",
+        "errorRetry": "An error occurred while syncing the search index with community help. Please try again."
+      },
+      "SyncDocsButton": {
+        "label": "Sync Docs",
+        "loading": "Syncing...",
+        "success": "Documentation synced successfully",
+        "failure": "Failed to sync documentation",
+        "errorRetry": "An error occurred while syncing documentation. Please try again."
+      },
+      "SyncCommunityHelp": {
+        "label": "Update Community Help",
+        "loading": "Fetching new threads...",
+        "success": "Community help threads synced successfully",
+        "failure": "Failed to sync community help",
+        "errorRetry": "An error occurred while syncing community help. Please try again."
+      },
+      "RedeployButton": {
+        "label": "Redeploy Website",
+        "loading": "Redeploy triggered...",
+        "success": "Redeploy triggered successfully!",
+        "failure": "Failed to trigger redeploy",
+        "errorRetry": "An error occurred while triggering redeploy. Please try again."
+      },
+      "RefreshMdxToLexicalButton": {
+        "label": "Refresh MDX to Lexical",
+        "loading": "Refreshing...",
+        "success": "Documentation refreshed successfully",
+        "failure": "Failed to refresh documentation",
+        "errorRetry": "An error occurred while refreshing documentation. Please try again."
+      },
+      "CMSForm": {
+        "captchaPrompt": "Please complete the Turnstile challenge.",
+        "submitSuccess": "Form submitted successfully!",
+        "redirectError": "Something went wrong. Did not redirect.",
+        "genericError": "Something went wrong."
+      }
+    }
+  },
+  "bg": {
+    "collections": {
+      "CaseStudies": {
+        "url": {
+          "label": "URL"
+        }
+      },
+      "Categories": {
+        "name": {
+          "label": "Име"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "headline": {
+          "label": "Заглавие"
+        },
+        "description": {
+          "label": "Описание"
+        },
+        "posts": {
+          "label": "Публикации"
+        }
+      },
+      "CommunityHelp": {
+        "communityHelpType": {
+          "label": "Discord тема"
+        },
+        "line36": {
+          "label": "GitHub дискусия"
+        },
+        "githubID": {
+          "label": "GitHub ID"
+        },
+        "discordID": {
+          "label": "Discord ID"
+        },
+        "slug": {
+          "label": "Slug"
+        },
+        "community-help": {
+          "plural": "Теми в общността",
+          "singular": "Тема в общността"
+        }
+      },
+      "Docs": {
+        "blocks": {
+          "pill": {
+            "text": {
+              "label": "Текст",
+              "description": "Напр. „1. ОПРЕДЕЛИ РАБОТА“ или „2. ЗАЯВИ ЗАДАЧИ“"
+            }
+          }
+        },
+        "content": {
+          "label": "Съдържание"
+        },
+        "version": {
+          "label": "Мета"
+        }
+      },
+      "Media": {
+        "darkModeFallback": {
+          "description": "Изберете файл за показване, когато посетителят използва тъмен режим."
+        }
+      },
+      "Pages": {
+        "noindex": {
+          "label": "No index"
+        },
+        "line54": {
+          "label": "Hero"
+        },
+        "line92": {
+          "label": "Съдържание"
+        }
+      },
+      "PartnerFilters": {
+        "line15": {
+          "group": "Партньорска програма"
+        },
+        "value": {
+          "description": "Може да съдържа само малки букви, цифри, тирета и долни черти",
+          "label": "Стойност"
+        }
+      },
+      "Partners": {
+        "partners": {
+          "group": "Партньорска програма",
+          "plural": "Партньори",
+          "singular": "Партньор"
+        },
+        "name": {
+          "label": "Име на агенцията"
+        },
+        "website": {
+          "label": "URL на сайта"
+        },
+        "email": {
+          "label": "Имейл за контакт"
+        },
+        "agency_status": {
+          "description": "Задайте „неактивен“, за да скриете партньора от директорията.",
+          "label": "Активен"
+        },
+        "line86": {
+          "label": "Неактивен"
+        },
+        "hubspotID": {
+          "label": "HubSpot ID"
+        },
+        "featured": {
+          "label": "Препоръчано"
+        },
+        "topContributor": {
+          "label": "Топ сътрудник?"
+        },
+        "bannerImage": {
+          "description": "Препоръчително 1600 × 800 px"
+        },
+        "overview": {
+          "label": "Преглед"
+        },
+        "services": {
+          "label": "Услуги"
+        },
+        "idealProject": {
+          "label": "Идеалният проект"
+        },
+        "type": {
+          "label": "Дискусия"
+        },
+        "line191": {
+          "label": "Pull request"
+        },
+        "line195": {
+          "label": "Issue"
+        },
+        "number": {
+          "label": "Приноси"
+        },
+        "link": {
+          "label": "Съдържание"
+        },
+        "platform": {
+          "label": "LinkedIn"
+        },
+        "line305": {
+          "label": "Twitter"
+        },
+        "line309": {
+          "label": "Facebook"
+        },
+        "line313": {
+          "label": "Instagram"
+        },
+        "line317": {
+          "label": "YouTube"
+        },
+        "line321": {
+          "label": "GitHub"
+        },
+        "url": {
+          "label": "URL"
+        },
+        "line339": {
+          "label": "Връзки към социални мрежи"
+        },
+        "line342": {
+          "label": "Детайли"
+        }
+      },
+      "Posts": {
+        "featuredMedia": {
+          "label": "Видео ембед"
+        },
+        "videoUrl": {
+          "label": "URL на видеото"
+        },
+        "dynamicThumbnail": {
+          "label": "Използвай динамична икона"
+        },
+        "website": {
+          "label": "Социални мрежи на гост-автор"
+        }
+      },
+      "ReusableContent": {
+        "reusable-content": {
+          "plural": "Многократни съдържания",
+          "singular": "Многократно съдържание"
+        }
+      },
+      "Users": {
+        "twitter": {
+          "description": "Например: `payloadcms`",
+          "label": "Twitter потребител"
+        }
+      }
+    },
+    "blocks": {
+      "Banner": {
+        "type": {
+          "label": "По подразбиране"
+        },
+        "line27": {
+          "label": "Успех"
+        },
+        "line31": {
+          "label": "Предупреждение"
+        },
+        "line35": {
+          "label": "Грешка"
+        }
+      },
+      "BlogMarkdown": {
+        "blogMarkdown": {
+          "plural": "Markdown блокове",
+          "singular": "Markdown"
+        }
+      },
+      "CallToAction": {
+        "style": {
+          "label": "Банер"
+        },
+        "gradientBackground": {
+          "label": "Активиране на градиентен фон"
+        },
+        "cta": {
+          "plural": "Призиви към действие",
+          "singular": "Призив към действие"
+        }
+      },
+      "CardGrid": {
+        "cardGridFields": {
+          "description": "Тези връзки ще се показват над решетката с карти като призиви към действие."
+        },
+        "revealDescription": {
+          "label": "Показване на описанията при посочване?"
+        }
+      },
+      "CaseStudyCards": {
+        "pixels": {
+          "label": "Показване на пикселен фон?"
+        },
+        "caseStudyCards": {
+          "plural": "Карти със случаи",
+          "singular": "Карти със случаи"
+        }
+      },
+      "CaseStudyParallax": {
+        "tabLabel": {
+          "description": "Етикет за навигационния таб в долната част на паралакса"
+        },
+        "caseStudyParallax": {
+          "plural": "Паралакс със случаи",
+          "singular": "Паралакс със случаи"
+        }
+      },
+      "Code": {
+        "language": {
+          "label": "JavaScript"
+        },
+        "line26": {
+          "label": "TypeScript"
+        }
+      },
+      "CodeFeature": {
+        "forceDarkBackground": {
+          "description": "Отметнете, за да накарате този блок да има тъмен фон."
+        },
+        "alignment": {
+          "description": "Изберете подравняването на съдържанието за този блок.",
+          "label": "Съдържание + код"
+        },
+        "line38": {
+          "label": "Код + съдържание"
+        },
+        "language": {
+          "label": "JavaScript"
+        },
+        "line79": {
+          "label": "TypeScript"
+        },
+        "label": {
+          "label": "Етикет на таб"
+        }
+      },
+      "ComparisonTable": {
+        "introContent": {
+          "label": "Въвеждащо съдържание"
+        },
+        "style": {
+          "label": "Центрирано"
+        },
+        "tableTitle": {
+          "placeholder": "Сравни функциите",
+          "label": "Заглавие"
+        },
+        "columnOneHeader": {
+          "placeholder": "Payload",
+          "label": "Заглавие на първа колона"
+        },
+        "columnTwoHeader": {
+          "placeholder": "Конкуренцията",
+          "label": "Заглавие на втора колона"
+        },
+        "line75": {
+          "label": "Заглавие на таблицата"
+        },
+        "feature": {
+          "placeholder": "Функция"
+        },
+        "line141": {
+          "label": "Редове"
+        }
+      },
+      "Content": {
+        "useLeadingHeader": {
+          "label": "Използвай водещо заглавие"
+        },
+        "leadingHeader": {
+          "label": "Водещо заглавие"
+        },
+        "layout": {
+          "label": "Две колони"
+        },
+        "line38": {
+          "label": "Две трети + една трета"
+        },
+        "line42": {
+          "label": "Наполовина"
+        },
+        "line46": {
+          "label": "Три колони"
+        }
+      },
+      "ContentGrid": {
+        "style": {
+          "label": "Стил"
+        },
+        "content": {
+          "label": "Съдържание"
+        }
+      },
+      "Download": {
+        "file": {
+          "description": "Файл за изтегляне"
+        },
+        "thumbnail": {
+          "description": "Икона за изтеглянето. По подразбиране — самият файл за изображения."
+        },
+        "copyToClipboardText": {
+          "label": "Изтегляния"
+        },
+        "downloadBlock": {
+          "plural": "Блокове за изтегляне",
+          "singular": "Блок за изтегляне"
+        }
+      },
+      "ExampleTabs": {
+        "CodeExampleBlock": {
+          "plural": "Примерни кодове",
+          "singular": "Примерен код"
+        },
+        "MediaExampleBlock": {
+          "plural": "Примерни медии",
+          "singular": "Примерна медия"
+        },
+        "exampleTabs": {
+          "plural": "Примерни табове",
+          "singular": "Примерни табове"
+        }
+      },
+      "Form": {
+        "form": {
+          "plural": "Блокове с форми",
+          "singular": "Блок с форма"
+        }
+      },
+      "HoverCards": {
+        "hideBackground": {
+          "label": "Скрий фона"
+        }
+      },
+      "HoverHighlights": {
+        "bottom": {
+          "label": "Медия"
+        },
+        "hoverHighlights": {
+          "plural": "Блокове с акценти при посочване",
+          "singular": "Блок с акценти при посочване"
+        }
+      },
+      "Media": {
+        "position": {
+          "label": "Широко"
+        }
+      },
+      "MediaContent": {
+        "alignment": {
+          "description": "Изберете подравняването на съдържанието за този блок.",
+          "label": "Съдържание + медия"
+        },
+        "line30": {
+          "label": "Медия + съдържание"
+        },
+        "mediaWidth": {
+          "description": "Изберете ширината на медията.",
+          "label": "Разтегни до ръба"
+        },
+        "line49": {
+          "label": "Подравни до полето"
+        }
+      },
+      "MediaContentAccordion": {
+        "alignment": {
+          "description": "Изберете подравняването на съдържанието за този блок.",
+          "label": "Съдържание + медия"
+        },
+        "line25": {
+          "label": "Медия + съдържание"
+        },
+        "position": {
+          "description": "Изберете позицията на самата медия.",
+          "label": "Нормално"
+        },
+        "line72": {
+          "label": "Вмъкнато"
+        },
+        "line76": {
+          "label": "Широко"
+        },
+        "background": {
+          "description": "Изберете фон, който да стои зад медията.",
+          "label": "Нищо"
+        },
+        "line95": {
+          "label": "Градиент"
+        },
+        "line99": {
+          "label": "Сканиращи линии"
+        }
+      },
+      "Pricing": {
+        "price": {
+          "label": "Цена на месец"
+        },
+        "title": {
+          "label": "Заглавие"
+        },
+        "icon": {
+          "label": "X"
+        }
+      },
+      "Slider": {
+        "enableLink": {
+          "label": "Активиране на връзка"
+        }
+      },
+      "Statement": {
+        "assetType": {
+          "label": "Код"
+        },
+        "media": {
+          "label": "Медия"
+        },
+        "code": {
+          "label": "Код"
+        },
+        "mediaWidth": {
+          "label": "Малък"
+        },
+        "line68": {
+          "label": "Среден"
+        },
+        "line72": {
+          "label": "Голям"
+        },
+        "line76": {
+          "label": "Пълно"
+        },
+        "backgroundGlow": {
+          "label": "Цветен"
+        },
+        "line96": {
+          "label": "Бяло"
+        },
+        "statement": {
+          "plural": "Изявления",
+          "singular": "Изявление"
+        }
+      },
+      "Steps": {
+        "steps": {
+          "plural": "Блокове със стъпки",
+          "singular": "Блок със стъпки"
+        }
+      },
+      "StickyHighlights": {
+        "type": {
+          "label": "Медия"
+        },
+        "stickyHighlights": {
+          "plural": "Блокове с прикрепени акценти",
+          "singular": "Блок с прикрепени акценти"
+        }
+      }
+    },
+    "globals": {
+      "GetStarted": {
+        "label": {
+          "label": "Етикет на таб"
+        },
+        "heading": {
+          "label": "Заглавие на страница"
+        },
+        "get-started": {
+          "plural": "Табове",
+          "singular": "Таб"
+        },
+        "tabs": {
+          "label": "Табове"
+        },
+        "sidebar": {
+          "label": "Странично съдържание"
+        },
+        "sidebarLinks": {
+          "label": "Странична лента"
+        }
+      },
+      "MainMenu": {
+        "line53": {
+          "label": "Директна връзка"
+        },
+        "style": {
+          "label": "Препоръчано"
+        },
+        "line100": {
+          "label": "Списък"
+        },
+        "line181": {
+          "label": "Падащо меню"
+        },
+        "line184": {
+          "label": "Елементи на главното меню"
+        },
+        "menuCta": {
+          "label": "Бутон с призив към действие в менюто"
+        }
+      },
+      "PartnerProgram": {
+        "partner-program": {
+          "group": "Партньорска програма",
+          "plural": "Блокове",
+          "singular": "Блок"
+        },
+        "contactForm": {
+          "description": "Изберете форма, която да се използва за контактна форма."
+        },
+        "richText": {
+          "label": "Hero текст"
+        },
+        "line137": {
+          "label": "Преди директорните блокове"
+        },
+        "line173": {
+          "label": "След директорните блокове"
+        },
+        "line186": {
+          "label": "Директория на партньорската програма"
+        }
+      },
+      "TopBar": {
+        "enableTopBar": {
+          "label": "Активиране на горната лента?"
+        },
+        "message": {
+          "label": "Съобщение"
+        }
+      }
+    },
+    "fields": {
+      "addToDocs": {
+        "addToDocs": {
+          "description": "Поставете този код в документацията, за да създадете връзка към тази публикация"
+        }
+      },
+      "blockFields": {
+        "theme": {
+          "description": "Оставете празно за системна стойност",
+          "label": "Светло"
+        },
+        "line24": {
+          "label": "Тъмно"
+        },
+        "background": {
+          "label": "Плътно"
+        },
+        "line42": {
+          "label": "Прозрачно"
+        },
+        "line46": {
+          "label": "Градиент нагоре"
+        },
+        "line50": {
+          "label": "Градиент надолу"
+        },
+        "line88": {
+          "label": "Настройки"
+        }
+      },
+      "codeBlips": {
+        "line35": {
+          "plural": "Блипове"
+        },
+        "line36": {
+          "singular": "Блип"
+        }
+      },
+      "hero": {
+        "type": {
+          "label": "Съдържание и медия"
+        },
+        "line27": {
+          "label": "Центрирано съдържание"
+        },
+        "line31": {
+          "label": "Форма"
+        },
+        "line35": {
+          "label": "Начало"
+        },
+        "line39": {
+          "label": "Начало — ново"
+        },
+        "line43": {
+          "label": "Livestream"
+        },
+        "line47": {
+          "label": "Градиент"
+        },
+        "line51": {
+          "label": "3.0"
+        },
+        "enableBreadcrumbsBar": {
+          "label": "Активиране на лентата с трохи"
+        },
+        "line81": {
+          "plural": "Връзки"
+        },
+        "line82": {
+          "singular": "Връзка"
+        },
+        "line87": {
+          "label": "Лента с трохи"
+        },
+        "enableAnnouncement": {
+          "label": "Активиране на съобщение?"
+        },
+        "primaryButtons": {
+          "label": "Основни бутони"
+        },
+        "threeCTA": {
+          "label": "Абонамент за бюлетин"
+        },
+        "line173": {
+          "label": "Бутони"
+        },
+        "description": {
+          "placeholder": "Абонирайте се, за да получавате периодични актуализации и новости на имейла си."
+        },
+        "line210": {
+          "plural": "Бутони"
+        },
+        "line211": {
+          "singular": "Бутон"
+        },
+        "secondaryButtons": {
+          "label": "Вторични бутони"
+        },
+        "logoMedia": {
+          "label": "Медия"
+        }
+      },
+      "link": {
+        "line7": {
+          "label": "По подразбиране"
+        },
+        "line11": {
+          "label": "Основен бутон"
+        },
+        "line15": {
+          "label": "Вторичен бутон"
+        },
+        "line54": {
+          "label": "Вътрешна връзка"
+        },
+        "line58": {
+          "label": "Персонализиран URL"
+        },
+        "newTab": {
+          "label": "Отвори в нов таб"
+        },
+        "reference": {
+          "label": "Документ за свързване"
+        },
+        "url": {
+          "label": "Персонализиран URL"
+        },
+        "label": {
+          "label": "Етикет"
+        },
+        "appearance": {
+          "description": "Изберете как да се изобразява връзката."
+        }
+      },
+      "livestreamFields": {
+        "id": {
+          "label": "YouTube ID"
+        },
+        "date": {
+          "label": "Дата/час (GMT)"
+        }
+      },
+      "richText": {
+        "features": {
+          "label": {
+            "client": {
+              "line29": {
+                "label": "Етикет"
+              },
+              "line39": {
+                "label": "Основен"
+              }
+            }
+          },
+          "largeBody": {
+            "client": {
+              "line29": {
+                "label": "Голям параграф"
+              },
+              "line39": {
+                "label": "Основен"
+              }
+            }
+          }
+        }
+      },
+      "slug": {
+        "slug": {
+          "label": "Slug"
+        }
+      }
+    },
+    "components": {
+      "AfterNavActions": {
+        "title": "Действия за администратора"
+      },
+      "BeforeDashboard": {
+        "heading": "Новини за Payload версии",
+        "subheading": "Използвайте този компонент, за да синхронизирате новините за Payload версии в чернова на публикация в категорията „Release Notes“.",
+        "pullLatest": "Извлечи последната версия",
+        "pullLatestLoading": "Извличане на последната...",
+        "pullSpecific": "Извлечи конкретна версия",
+        "pullSpecificLoading": "Извличане на конкретна...",
+        "versionPlaceholder": "напр. 3.1.0",
+        "toastLoading": "Създава се чернова на публикация...",
+        "toastSuccess": "Черновата е създадена"
+      },
+      "SyncToAlgolia": {
+        "label": "Синхронизирай търсачката + темите от общността",
+        "loading": "Синхронизиране...",
+        "success": "Търсачката е синхронизирана с темите от общността",
+        "failure": "Неуспешно синхронизиране на търсачката с темите от общността",
+        "errorRetry": "Възникна грешка при синхронизирането. Моля, опитайте отново."
+      },
+      "SyncDocsButton": {
+        "label": "Синхронизирай документацията",
+        "loading": "Синхронизиране...",
+        "success": "Документацията е синхронизирана успешно",
+        "failure": "Неуспешно синхронизиране на документацията",
+        "errorRetry": "Възникна грешка при синхронизирането на документацията. Моля, опитайте отново."
+      },
+      "SyncCommunityHelp": {
+        "label": "Обнови темите от общността",
+        "loading": "Извличане на нови теми...",
+        "success": "Темите от общността са синхронизирани успешно",
+        "failure": "Неуспешно синхронизиране на темите от общността",
+        "errorRetry": "Възникна грешка при синхронизирането. Моля, опитайте отново."
+      },
+      "RedeployButton": {
+        "label": "Преразгръщане на сайта",
+        "loading": "Преразгръщането е стартирано...",
+        "success": "Преразгръщането е стартирано успешно!",
+        "failure": "Неуспешно стартиране на преразгръщането",
+        "errorRetry": "Възникна грешка при стартиране на преразгръщането. Моля, опитайте отново."
+      },
+      "RefreshMdxToLexicalButton": {
+        "label": "Обнови MDX към Lexical",
+        "loading": "Обновяване...",
+        "success": "Документацията е обновена успешно",
+        "failure": "Неуспешно обновяване на документацията",
+        "errorRetry": "Възникна грешка при обновяването на документацията. Моля, опитайте отново."
+      },
+      "CMSForm": {
+        "captchaPrompt": "Моля, завършете Turnstile проверката.",
+        "submitSuccess": "Формата беше изпратена успешно!",
+        "redirectError": "Възникна грешка. Не пренасочихме.",
+        "genericError": "Възникна грешка."
+      }
+    }
+  }
+}

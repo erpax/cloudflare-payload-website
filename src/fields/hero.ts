@@ -13,42 +13,42 @@ export const hero: Field = {
       name: 'type',
       type: 'select',
       defaultValue: 'default',
-      label: 'Type',
+      label: ({ t }) => t('website:fields:hero:type:label'),
       options: [
         {
-          label: 'Default',
+          label: ({ t }) => t('website:fields:hero:type:label'),
           value: 'default',
         },
         {
-          label: 'Content and Media',
+          label: ({ t }) => t('website:fields:hero:type:label'),
           value: 'contentMedia',
         },
         {
-          label: 'Centered Content',
+          label: ({ t }) => t('website:fields:hero:line27:label'),
           value: 'centeredContent',
         },
         {
-          label: 'Form',
+          label: ({ t }) => t('website:fields:hero:line31:label'),
           value: 'form',
         },
         {
-          label: 'Home',
+          label: ({ t }) => t('website:fields:hero:line35:label'),
           value: 'home',
         },
         {
-          label: 'Home New',
+          label: ({ t }) => t('website:fields:hero:line39:label'),
           value: 'homeNew',
         },
         {
-          label: 'Livestream',
+          label: ({ t }) => t('website:fields:hero:line43:label'),
           value: 'livestream',
         },
         {
-          label: 'Gradient',
+          label: ({ t }) => t('website:fields:hero:line47:label'),
           value: 'gradient',
         },
         {
-          label: '3.0',
+          label: ({ t }) => t('website:fields:hero:line51:label'),
           value: 'three',
         },
       ],
@@ -68,7 +68,7 @@ export const hero: Field = {
         {
           name: 'enableBreadcrumbsBar',
           type: 'checkbox',
-          label: 'Enable Breadcrumbs Bar',
+          label: ({ t }) => t('website:fields:hero:enableBreadcrumbsBar:label'),
         },
         linkGroup({
           appearances: false,
@@ -78,13 +78,13 @@ export const hero: Field = {
               condition: (_, { enableBreadcrumbsBar } = {}) => Boolean(enableBreadcrumbsBar),
             },
             labels: {
-              plural: 'Links',
-              singular: 'Link',
+              plural: ({ t }) => t('website:fields:hero:line81:plural'),
+              singular: ({ t }) => t('website:fields:hero:line82:singular'),
             },
           },
         }),
       ],
-      label: 'Breadcrumbs Bar',
+      label: ({ t }) => t('website:fields:hero:line87:label'),
     },
     livestreamFields,
     {
@@ -93,7 +93,7 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => ['home', 'homeNew'].includes(type),
       },
-      label: 'Enable Announcement?',
+      label: ({ t }) => t('website:fields:hero:enableAnnouncement:label'),
     },
     link({
       appearances: false,
@@ -132,7 +132,7 @@ export const hero: Field = {
         admin: {
           condition: (_, { type }) => ['home', 'homeNew'].includes(type),
         },
-        label: 'Primary Buttons',
+        label: ({ t }) => t('website:fields:hero:primaryButtons:label'),
       },
     }),
     {
@@ -163,14 +163,14 @@ export const hero: Field = {
       admin: {
         condition: (_, { type }) => type === 'three',
       },
-      label: 'CTA?',
+      label: ({ t }) => t('website:fields:hero:threeCTA:label'),
       options: [
         {
-          label: 'Newsletter Sign Up',
+          label: ({ t }) => t('website:fields:hero:threeCTA:label'),
           value: 'newsletter',
         },
         {
-          label: 'Buttons',
+          label: ({ t }) => t('website:fields:hero:line173:label'),
           value: 'buttons',
         },
       ],
@@ -193,7 +193,7 @@ export const hero: Field = {
           name: 'description',
           type: 'textarea',
           admin: {
-            placeholder: 'Sign up to receive periodic updates and feature releases to your email.',
+            placeholder: { en: 'Sign up to receive periodic updates and feature releases to your email.', bg: 'Абонирайте се, за да получавате периодични актуализации и новости на имейла си.' },
           },
         },
       ],
@@ -207,8 +207,8 @@ export const hero: Field = {
       blockReferences: ['link', 'command'],
       blocks: [],
       labels: {
-        plural: 'Buttons',
-        singular: 'Button',
+        plural: ({ t }) => t('website:fields:hero:line210:plural'),
+        singular: ({ t }) => t('website:fields:hero:line211:singular'),
       },
     },
     linkGroup({
@@ -218,7 +218,7 @@ export const hero: Field = {
         admin: {
           condition: (_, { type }) => ['home'].includes(type),
         },
-        label: 'Secondary Buttons',
+        label: ({ t }) => t('website:fields:hero:secondaryButtons:label'),
       },
     }),
     {
@@ -291,7 +291,7 @@ export const hero: Field = {
         {
           name: 'logoMedia',
           type: 'upload',
-          label: 'Media',
+          label: ({ t }) => t('website:fields:hero:logoMedia:label'),
           relationTo: 'media',
           required: true,
         },

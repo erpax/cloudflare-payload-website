@@ -11,8 +11,8 @@ export const CodeExampleBlock: Block = {
   ],
   interfaceName: 'CodeExampleBlock',
   labels: {
-    plural: 'Code Examples',
-    singular: 'Code Example',
+    plural: ({ t }) => t('website:blocks:ExampleTabs:CodeExampleBlock:plural'),
+    singular: ({ t }) => t('website:blocks:ExampleTabs:CodeExampleBlock:singular'),
   },
 }
 
@@ -28,8 +28,8 @@ export const MediaExampleBlock: Block = {
   ],
   interfaceName: 'MediaExampleBlock',
   labels: {
-    plural: 'Media Examples',
-    singular: 'Media Example',
+    plural: ({ t }) => t('website:blocks:ExampleTabs:MediaExampleBlock:plural'),
+    singular: ({ t }) => t('website:blocks:ExampleTabs:MediaExampleBlock:singular'),
   },
 }
 
@@ -69,7 +69,7 @@ export const ExampleTabs: Block = {
   ],
   interfaceName: 'ExampleTabsBlock',
   labels: {
-    plural: 'Example Tabs',
-    singular: 'Example Tabs',
+    plural: ({ t }) => t('website:blocks:ExampleTabs:exampleTabs:plural'),
+    singular: ({ t }) => t('website:blocks:ExampleTabs:exampleTabs:singular'),
   },
 }

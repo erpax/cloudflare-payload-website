@@ -1,7 +1,7 @@
 import type { Metadata } from 'next'
 
-import { GoogleAnalytics } from '@components/Analytics/GoogleAnalytics/index'
-import { GoogleTagManager } from '@components/Analytics/GoogleTagManager/index'
+import { CloudflareWebAnalytics } from '@components/Analytics/CloudflareWebAnalytics/index'
+import { PayloadAdminBar } from '@components/PayloadAdminBar/index'
 import { PrivacyBanner } from '@components/PrivacyBanner/index'
 import { Providers } from '@providers/index'
 import { PrivacyProvider } from '@root/providers/Privacy/index'
@@ -20,13 +20,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
           <link href="/images/favicon.svg" rel="icon" />
           <link href={process.env.NEXT_PUBLIC_CLOUD_CMS_URL} rel="dns-prefetch" />
           <link href="https://api.github.com/repos/payloadcms/payload" rel="dns-prefetch" />
-          <link href="https://cdn.jsdelivr.net/npm/@docsearch/css@3" rel="stylesheet" />
-          <link href="https://www.googletagmanager.com" rel="preconnect" />
-          <link href="https://www.google-analytics.com" rel="preconnect" />
-          <GoogleAnalytics />
+          <link href="https://static.cloudflareinsights.com" rel="preconnect" />
         </head>
         <body className={[GeistMono.variable, untitledSans.variable].join(' ')}>
-          <GoogleTagManager />
+          <CloudflareWebAnalytics />
+          <PayloadAdminBar />
           <Providers>
             {children}
             <PrivacyBanner />

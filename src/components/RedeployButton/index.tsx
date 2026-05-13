@@ -1,6 +1,10 @@
 'use client'
 
-import { useConfig } from '@payloadcms/ui'
+import { useConfig, useTranslation } from '@payloadcms/ui'
+import type {
+  CustomTranslationsKeys,
+  CustomTranslationsObject,
+} from '@root/i18n/types'
 import React, { useState } from 'react'
 import { toast } from 'sonner'
 
@@ -9,6 +13,7 @@ import './index.scss'
 const baseClass = 'redeploy-button'
 
 const RedeployButton: React.FC = () => {
+  const { t } = useTranslation<CustomTranslationsObject, CustomTranslationsKeys>()
   const [isLoading, setIsLoading] = useState(false)
   const {
     config: {
@@ -22,7 +27,7 @@ const RedeployButton: React.FC = () => {
       method: 'POST',
     })
     if (res.ok) {
-      toast.success('Redeploy triggered successfully!', { duration: 3000 })
+      toast.success(t('website:components:RedeployButton:success'), { duration: 3000 })
       setIsLoading(false)
     } else {
       const data = await res.json()
@@ -33,7 +38,9 @@ const RedeployButton: React.FC = () => {
 
   return (
     <button className={baseClass} disabled={isLoading} onClick={redeployCMS} type="button">
-      {isLoading ? 'Redeploy triggered...' : 'Redeploy Website'}
+      {isLoading
+        ? t('website:components:RedeployButton:loading')
+        : t('website:components:RedeployButton:label')}
     </button>
   )
 }

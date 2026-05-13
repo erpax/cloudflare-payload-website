@@ -22,7 +22,7 @@ export const BlogMarkdown: Block = {
     }),
   ],
   labels: {
-    plural: 'Markdown Blocks',
-    singular: 'Markdown',
+    plural: ({ t }) => t('website:blocks:BlogMarkdown:blogMarkdown:plural'),
+    singular: ({ t }) => t('website:blocks:BlogMarkdown:blogMarkdown:singular'),
   },
 }

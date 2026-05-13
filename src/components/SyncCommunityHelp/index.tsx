@@ -1,6 +1,10 @@
 'use client'
 
-import { toast, useConfig } from '@payloadcms/ui'
+import { toast, useConfig, useTranslation } from '@payloadcms/ui'
+import type {
+  CustomTranslationsKeys,
+  CustomTranslationsObject,
+} from '@root/i18n/types'
 import React, { useState } from 'react'
 
 import './index.scss'
@@ -8,6 +12,7 @@ import './index.scss'
 const baseClass = 'sync-ch-button'
 
 const SyncCommunityHelp: React.FC = () => {
+  const { t } = useTranslation<CustomTranslationsObject, CustomTranslationsKeys>()
   const [isSyncing, setIsSyncing] = useState(false)
   const {
     config: {
@@ -22,7 +27,7 @@ const SyncCommunityHelp: React.FC = () => {
       const res = await fetch(`${api}/sync-ch`)
 
       if (!res.ok) {
-        let errorMessage = 'Failed to sync community help'
+        let errorMessage = t('website:components:SyncCommunityHelp:failure')
         try {
           const data = await res.json()
           errorMessage += `: ${data?.message || 'Unknown error'}`
@@ -33,17 +38,19 @@ const SyncCommunityHelp: React.FC = () => {
         return
       }
 
-      toast.success('Community help threads synced successfully')
+      toast.success(t('website:components:SyncCommunityHelp:success'))
     } catch (error) {
       console.error('Sync failed:', error)
-      toast.error('An error occurred while syncing community help. Please try again.')
+      toast.error(t('website:components:SyncCommunityHelp:errorRetry'))
     }
     setIsSyncing(false)
   }
 
   return (
     <button className={baseClass} disabled={isSyncing} onClick={syncCommunityHelp} type="button">
-      {isSyncing ? 'Fetching new threads...' : 'Update Community Help'}
+      {isSyncing
+        ? t('website:components:SyncCommunityHelp:loading')
+        : t('website:components:SyncCommunityHelp:label')}
     </button>
   )
 }

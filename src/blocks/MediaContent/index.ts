@@ -17,17 +17,17 @@ export const MediaContent: Block = {
               name: 'alignment',
               type: 'select',
               admin: {
-                description: 'Choose how to align the content for this block.',
+                description: ({ t }) => t('website:blocks:MediaContent:alignment:description'),
                 width: '50%',
               },
               defaultValue: 'contentMedia',
               options: [
                 {
-                  label: 'Content + Media',
+                  label: ({ t }) => t('website:blocks:MediaContent:alignment:label'),
                   value: 'contentMedia',
                 },
                 {
-                  label: 'Media + Content',
+                  label: ({ t }) => t('website:blocks:MediaContent:line30:label'),
                   value: 'mediaContent',
                 },
               ],
@@ -36,17 +36,17 @@ export const MediaContent: Block = {
               name: 'mediaWidth',
               type: 'select',
               admin: {
-                description: 'Choose how wide the media should be.',
+                description: ({ t }) => t('website:blocks:MediaContent:mediaWidth:description'),
                 width: '50%',
               },
               defaultValue: 'stretch',
               options: [
                 {
-                  label: 'Stretch To Edge',
+                  label: ({ t }) => t('website:blocks:MediaContent:mediaWidth:label'),
                   value: 'stretch',
                 },
                 {
-                  label: 'Fit to Margin',
+                  label: ({ t }) => t('website:blocks:MediaContent:line49:label'),
                   value: 'fit',
                 },
               ],

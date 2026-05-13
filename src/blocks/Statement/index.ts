@@ -18,14 +18,14 @@ export const Statement: Block = {
           name: 'assetType',
           type: 'select',
           defaultValue: 'media',
-          label: 'Asset Type',
+          label: ({ t }) => t('website:blocks:Statement:assetType:label'),
           options: [
             {
-              label: 'Media',
+              label: ({ t }) => t('website:blocks:Statement:assetType:label'),
               value: 'media',
             },
             {
-              label: 'Code',
+              label: ({ t }) => t('website:blocks:Statement:assetType:label'),
               value: 'code',
             },
           ],
@@ -36,7 +36,7 @@ export const Statement: Block = {
           admin: {
             condition: (_, siblingData) => siblingData.assetType === 'media',
           },
-          label: 'Media',
+          label: ({ t }) => t('website:blocks:Statement:media:label'),
           relationTo: 'media',
         },
         {
@@ -45,7 +45,7 @@ export const Statement: Block = {
           admin: {
             condition: (_, siblingData) => siblingData.assetType === 'code',
           },
-          label: 'Code',
+          label: ({ t }) => t('website:blocks:Statement:code:label'),
         },
         {
           type: 'row',
@@ -58,22 +58,22 @@ export const Statement: Block = {
                 width: '50%',
               },
               defaultValue: 'medium',
-              label: 'Media Width',
+              label: ({ t }) => t('website:blocks:Statement:mediaWidth:label'),
               options: [
                 {
-                  label: 'Small',
+                  label: ({ t }) => t('website:blocks:Statement:mediaWidth:label'),
                   value: 'small',
                 },
                 {
-                  label: 'Medium',
+                  label: ({ t }) => t('website:blocks:Statement:line68:label'),
                   value: 'medium',
                 },
                 {
-                  label: 'Large',
+                  label: ({ t }) => t('website:blocks:Statement:line72:label'),
                   value: 'large',
                 },
                 {
-                  label: 'Full',
+                  label: ({ t }) => t('website:blocks:Statement:line76:label'),
                   value: 'full',
                 },
               ],
@@ -82,18 +82,18 @@ export const Statement: Block = {
               name: 'backgroundGlow',
               type: 'select',
               defaultValue: 'none',
-              label: 'Background Glow',
+              label: ({ t }) => t('website:blocks:Statement:backgroundGlow:label'),
               options: [
                 {
-                  label: 'None',
+                  label: ({ t }) => t('website:blocks:Statement:backgroundGlow:label'),
                   value: 'none',
                 },
                 {
-                  label: 'Colorful',
+                  label: ({ t }) => t('website:blocks:Statement:backgroundGlow:label'),
                   value: 'colorful',
                 },
                 {
-                  label: 'White',
+                  label: ({ t }) => t('website:blocks:Statement:line96:label'),
                   value: 'white',
                 },
               ],
@@ -111,7 +111,7 @@ export const Statement: Block = {
     }),
   ],
   labels: {
-    plural: 'Statements',
-    singular: 'Statement',
+    plural: ({ t }) => t('website:blocks:Statement:statement:plural'),
+    singular: ({ t }) => t('website:blocks:Statement:statement:singular'),
   },
 }

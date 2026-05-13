@@ -15,15 +15,15 @@ export const Code: Block = {
           defaultValue: 'none',
           options: [
             {
-              label: 'None',
+              label: ({ t }) => t('website:blocks:Code:language:label'),
               value: 'none',
             },
             {
-              label: 'JavaScript',
+              label: ({ t }) => t('website:blocks:Code:language:label'),
               value: 'js',
             },
             {
-              label: 'TypeScript',
+              label: ({ t }) => t('website:blocks:Code:line26:label'),
               value: 'ts',
             },
           ],

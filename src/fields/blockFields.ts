@@ -1,6 +1,7 @@
 import type { Field, GroupField } from 'payload'
 
 import deepMerge from '../utilities/deepMerge'
+import { shortEnumName } from '../utilities/shortEnumName'
 
 interface Args {
   fields: Field[]
@@ -11,17 +12,18 @@ interface Args {
 export const themeField: (width?: number) => Field = (width) => ({
   name: 'theme',
   type: 'select',
+  enumName: ({ tableName }) => shortEnumName(`enum_${tableName}_theme`),
   admin: {
-    description: 'Leave blank for system default',
+    description: ({ t }) => t('website:fields:blockFields:theme:description'),
     width: width ? `${width}%` : '50%',
   },
   options: [
     {
-      label: 'Light',
+      label: ({ t }) => t('website:fields:blockFields:theme:label'),
       value: 'light',
     },
     {
-      label: 'Dark',
+      label: ({ t }) => t('website:fields:blockFields:line24:label'),
       value: 'dark',
     },
   ],
@@ -30,24 +32,25 @@ export const themeField: (width?: number) => Field = (width) => ({
 export const backgroundField: Field = {
   name: 'background',
   type: 'select',
+  enumName: ({ tableName }) => shortEnumName(`enum_${tableName}_background`),
   admin: {
     width: '50%',
   },
   options: [
     {
-      label: 'Solid',
+      label: ({ t }) => t('website:fields:blockFields:background:label'),
       value: 'solid',
     },
     {
-      label: 'Transparent',
+      label: ({ t }) => t('website:fields:blockFields:line42:label'),
       value: 'transparent',
     },
     {
-      label: 'Gradient Up',
+      label: ({ t }) => t('website:fields:blockFields:line46:label'),
       value: 'gradientUp',
     },
     {
-      label: 'Gradient Down',
+      label: ({ t }) => t('website:fields:blockFields:line50:label'),
       value: 'gradientDown',
     },
   ],
@@ -85,7 +88,7 @@ export const blockFields = ({ name, fields, overrides }: Args): Field =>
               label: false,
             },
           ],
-          label: 'Settings',
+          label: ({ t }) => t('website:fields:blockFields:line88:label'),
         },
         ...fields,
       ],

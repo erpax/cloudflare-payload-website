@@ -17,7 +17,7 @@ export const ContentGrid: Block = {
               name: 'style',
               type: 'select',
               defaultValue: 'gridBelow',
-              label: 'Style',
+              label: ({ t }) => t('website:blocks:ContentGrid:style:label'),
               options: [
                 { label: 'Grid Below', value: 'gridBelow' },
                 { label: 'Side by Side', value: 'sideBySide' },
@@ -31,7 +31,7 @@ export const ContentGrid: Block = {
         },
         richText({
           name: 'content',
-          label: 'Content',
+          label: ({ t }) => t('website:blocks:ContentGrid:content:label'),
           required: false,
         }),
         linkGroup({

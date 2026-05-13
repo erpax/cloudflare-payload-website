@@ -67,18 +67,9 @@ const PrivacyProvider: React.FC<{ children: React.ReactNode }> = ({ children }) 
     })().catch(console.error)
   }, [updateCookieConsent])
 
-  useEffect(() => {
-    import('react-facebook-pixel')
-      .then((x) => x.default)
-      .then((ReactPixel) => {
-        if (cookieConsent) {
-          ReactPixel.grantConsent()
-        } else {
-          ReactPixel.revokeConsent()
-        }
-      })
-      .catch(console.error)
-  }, [cookieConsent])
+  // Facebook Pixel removed — Cloudflare Web Analytics is cookieless and does
+  // not require a consent toggle. `cookieConsent` is still gated here so the
+  // Cloudflare beacon only loads after the user accepts the banner (GDPR).
 
   return (
     <Context value={{ cookieConsent, country, showConsent, updateCookieConsent }}>

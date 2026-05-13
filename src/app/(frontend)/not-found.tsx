@@ -20,7 +20,6 @@ export default async function NotFound() {
       <Header {...mainMenu} />
       <div>
         <ErrorMessage />
-        <div id="docsearch" />
         <Footer {...footer} />
       </div>
     </React.Fragment>

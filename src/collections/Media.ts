@@ -4,6 +4,10 @@ import { isAdmin } from '../access/isAdmin'
 
 export const Media: CollectionConfig<'media'> = {
   slug: 'media',
+  labels: {
+    singular: { en: 'Media file', bg: 'Медиен файл' },
+    plural: { en: 'Media', bg: 'Медии' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -29,7 +33,7 @@ export const Media: CollectionConfig<'media'> = {
       name: 'darkModeFallback',
       type: 'upload',
       admin: {
-        description: 'Choose an upload to render if the visitor is using dark mode.',
+        description: ({ t }) => t('website:collections:Media:darkModeFallback:description'),
       },
       relationTo: 'media',
     },

@@ -16,14 +16,14 @@ export const CardGrid: Block = {
           appearances: false,
           overrides: {
             admin: {
-              description: 'These links will be placed above the card grid as calls-to-action.',
+              description: ({ t }) => t('website:blocks:CardGrid:cardGridFields:description'),
             },
           },
         }),
         {
           name: 'revealDescription',
           type: 'checkbox',
-          label: 'Reveal descriptions on hover?',
+          label: ({ t }) => t('website:blocks:CardGrid:revealDescription:label'),
         },
         {
           name: 'cards',

@@ -5,6 +5,10 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 
 export const Categories: CollectionConfig = {
   slug: 'categories',
+  labels: {
+    singular: { en: 'Category', bg: 'Категория' },
+    plural: { en: 'Categories', bg: 'Категории' },
+  },
   access: {
     create: isAdmin,
     delete: isAdmin,
@@ -24,7 +28,7 @@ export const Categories: CollectionConfig = {
           admin: {
             width: '50%',
           },
-          label: 'Name',
+          label: ({ t }) => t('website:collections:Categories:name:label'),
           required: true,
         },
         {
@@ -33,7 +37,7 @@ export const Categories: CollectionConfig = {
           admin: {
             width: '50%',
           },
-          label: 'Slug',
+          label: ({ t }) => t('website:collections:Categories:slug:label'),
           required: true,
         },
       ],
@@ -41,13 +45,13 @@ export const Categories: CollectionConfig = {
     {
       name: 'headline',
       type: 'text',
-      label: 'Headline',
+      label: ({ t }) => t('website:collections:Categories:headline:label'),
       required: true,
     },
     {
       name: 'description',
       type: 'textarea',
-      label: 'Description',
+      label: ({ t }) => t('website:collections:Categories:description:label'),
       required: true,
     },
     {
@@ -55,7 +59,7 @@ export const Categories: CollectionConfig = {
       type: 'join',
       collection: 'posts',
       defaultLimit: 0,
-      label: 'Posts',
+      label: ({ t }) => t('website:collections:Categories:posts:label'),
       maxDepth: 2,
       on: 'category',
     },

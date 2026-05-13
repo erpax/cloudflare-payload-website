@@ -59,7 +59,7 @@ export const HoverHighlights: Block = {
                   ],
                 },
               ],
-              label: 'Media',
+              label: ({ t }) => t('website:blocks:HoverHighlights:bottom:label'),
             },
             link({
               appearances: false,
@@ -78,7 +78,7 @@ export const HoverHighlights: Block = {
     }),
   ],
   labels: {
-    plural: 'Hover Highlights Blocks',
-    singular: 'Hover Highlights Block',
+    plural: ({ t }) => t('website:blocks:HoverHighlights:hoverHighlights:plural'),
+    singular: ({ t }) => t('website:blocks:HoverHighlights:hoverHighlights:singular'),
   },
 }

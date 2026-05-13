@@ -3,13 +3,24 @@
 import type { Form as FormType } from '@root/payload-types'
 
 import { RichText } from '@components/RichText/index'
+import { Turnstile, type TurnstileHandle } from '@components/Turnstile/index'
 import Form from '@forms/Form/index'
+import websiteI18n from '@root/i18n/website.json'
 import { CrosshairIcon } from '@root/icons/CrosshairIcon/index'
 import { getCookie } from '@root/utilities/get-cookie'
 import { usePathname, useRouter } from 'next/navigation'
 import * as React from 'react'
-import ReCAPTCHA from 'react-google-recaptcha'
 import { toast } from 'sonner'
+
+// Frontend lives outside Payload's admin i18n. Pick locale from a cookie
+// (set elsewhere by a locale switcher, if any) or fall back to 'en'.
+const pickLocale = (): 'bg' | 'en' => {
+  if (typeof document === 'undefined') return 'en'
+  const m = document.cookie.match(/(?:^|; )locale=([^;]+)/)
+  return m && (m[1] === 'bg' || m[1] === 'en') ? (m[1] as 'bg' | 'en') : 'en'
+}
+const formStr = (key: 'captchaPrompt' | 'submitSuccess' | 'redirectError' | 'genericError'): string =>
+  (websiteI18n as any)[pickLocale()].components?.CMSForm?.[key] ?? key
 
 import { fields } from './fields'
 import classes from './index.module.scss'
@@ -48,7 +59,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
   const initialState = buildInitialState(form.fields)
 
-  const recaptcha = React.useRef<ReCAPTCHA>(null)
+  const recaptcha = React.useRef<TurnstileHandle>(null)
 
   const router = useRouter()
 
@@ -65,7 +76,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
         if (recaptcha && !captchaValue) {
           setIsLoading(false)
-          toast.error('Please complete the reCAPTCHA.')
+          toast.error(formStr('captchaPrompt'))
 
           return
         }
@@ -107,7 +118,7 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
 
           setIsLoading(false)
           setHasSubmitted(true)
-          toast.success('Form submitted successfully!')
+          toast.success(formStr('submitSuccess'))
 
           if (confirmationType === 'redirect' && formRedirect) {
             const { url } = formRedirect
@@ -126,13 +137,13 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               }
             } catch (err) {
               console.warn(err) // eslint-disable-line no-console
-              toast.error('Something went wrong. Did not redirect.')
+              toast.error(formStr('redirectError'))
             }
           }
         } catch (err) {
           console.warn(err) // eslint-disable-line no-console
           setIsLoading(false)
-          toast.error('Something went wrong.')
+          toast.error(formStr('genericError'))
         }
       }
 
@@ -186,10 +197,10 @@ const RenderForm = ({ form, hiddenFields }: { form: FormType; hiddenFields: stri
               <CrosshairIcon className={[classes.crosshair, classes.crosshairLeft].join(' ')} />
             </div>
             <div className={classes.captchaWrap}>
-              <ReCAPTCHA
+              <Turnstile
                 className={classes.captcha}
                 ref={recaptcha}
-                sitekey={process.env.NEXT_PUBLIC_RECAPTCHA_SITE_KEY || ''}
+                sitekey={process.env.NEXT_PUBLIC_TURNSTILE_SITE_KEY || ''}
                 theme="dark"
               />
             </div>

@@ -12,14 +12,14 @@ export const PartnerProgram: GlobalConfig = {
     update: isAdmin,
   },
   admin: {
-    group: 'Partner Program',
+    group: { en: 'Partner Program', bg: 'Партньорска програма' },
   },
   fields: [
     {
       name: 'contactForm',
       type: 'relationship',
       admin: {
-        description: 'Select the form that should be used for the contact form.',
+        description: ({ t }) => t('website:globals:PartnerProgram:contactForm:description'),
       },
       relationTo: 'forms',
       required: true,
@@ -31,7 +31,7 @@ export const PartnerProgram: GlobalConfig = {
         {
           name: 'richText',
           type: 'richText',
-          label: 'Hero Text',
+          label: ({ t }) => t('website:globals:PartnerProgram:richText:label'),
         },
         linkGroup({
           appearances: false,
@@ -134,10 +134,10 @@ export const PartnerProgram: GlobalConfig = {
             'exampleTabs',
           ],
           blocks: [],
-          label: 'Before Directory Blocks',
+          label: ({ t }) => t('website:globals:PartnerProgram:line137:label'),
           labels: {
-            plural: 'Blocks',
-            singular: 'Block',
+            plural: ({ t }) => t('website:globals:PartnerProgram:partner-program:plural'),
+            singular: ({ t }) => t('website:globals:PartnerProgram:partner-program:singular'),
           },
         },
         {
@@ -170,10 +170,10 @@ export const PartnerProgram: GlobalConfig = {
             'exampleTabs',
           ],
           blocks: [],
-          label: 'After Directory Blocks',
+          label: ({ t }) => t('website:globals:PartnerProgram:line173:label'),
           labels: {
-            plural: 'Blocks',
-            singular: 'Block',
+            plural: ({ t }) => t('website:globals:PartnerProgram:partner-program:plural'),
+            singular: ({ t }) => t('website:globals:PartnerProgram:partner-program:singular'),
           },
         },
       ],
@@ -183,5 +183,5 @@ export const PartnerProgram: GlobalConfig = {
   hooks: {
     afterChange: [() => revalidatePath('/parters', 'layout')],
   },
-  label: 'Partner Program Directory',
+  label: ({ t }) => t('website:globals:PartnerProgram:line186:label'),
 }

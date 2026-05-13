@@ -1,6 +1,13 @@
+'use client'
+
+/**
+ * Search input bound to the D1 FTS context (`AlgoliaProvider`). File name
+ * kept for migration compatibility.
+ */
+
+import { useCommunityHelpSearch } from '@root/app/(frontend)/(pages)/community-help/AlgoliaProvider/index'
 import useDebounce from '@root/utilities/use-debounce'
-import React, { useCallback, useEffect } from 'react'
-import { useSearchBox } from 'react-instantsearch'
+import * as React from 'react'
 
 import classes from './index.module.scss'
 
@@ -10,41 +17,25 @@ export const AlgoliaSearchBox: React.FC<{
   className?: string
 }> = (props) => {
   const { className } = props
-
-  const {
-    clear,
-    query,
-    refine,
-    // isSearchStalled
-  } = useSearchBox()
+  const { query, setQuery } = useCommunityHelpSearch()
 
   const [value, setValue] = React.useState(query)
   const debouncedInput = useDebounce(value, 700)
 
-  // TODO: allow outside changes to update this field (search modal)
-  useEffect(() => {
-    if (query !== debouncedInput) {
-      // setValue(query);
-    }
-  }, [query, debouncedInput])
-
-  const handleChange = useCallback(
+  const handleChange = React.useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
-      const incomingValue = e.target.value
-      if (incomingValue !== value) {
-        setValue(incomingValue)
-      }
+      setValue(e.target.value)
     },
-    [value],
+    [],
   )
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (debouncedInput.length >= minValueLength) {
-      refine(debouncedInput)
-    } else if (debouncedInput.length < minValueLength) {
-      clear()
+      setQuery(debouncedInput)
+    } else if (debouncedInput.length === 0) {
+      setQuery('')
     }
-  }, [debouncedInput, refine, clear])
+  }, [debouncedInput, setQuery])
 
   return (
     <input

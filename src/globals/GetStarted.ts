@@ -11,7 +11,7 @@ const tabBlock: (slug: string, fields: Field[]) => Block = (slug, fields) => {
       {
         name: 'label',
         type: 'text',
-        label: 'Tab Label',
+        label: ({ t }) => t('website:globals:GetStarted:label:label'),
         required: true,
       },
       ...fields,
@@ -27,6 +27,7 @@ const richTextBlock: Block = tabBlock('richTextBlock', [
 ])
 export const GetStarted: GlobalConfig = {
   slug: 'get-started',
+  label: { en: 'Get Started', bg: 'Първи стъпки' },
   access: {
     read: () => true,
     update: isAdmin,
@@ -41,19 +42,19 @@ export const GetStarted: GlobalConfig = {
               name: 'heading',
               type: 'text',
               defaultValue: 'Get started with Payload',
-              label: 'Page Heading',
+              label: ({ t }) => t('website:globals:GetStarted:heading:label'),
             },
             {
               name: 'tabs',
               type: 'blocks',
               blocks: [richTextBlock],
               labels: {
-                plural: 'Tabs',
-                singular: 'Tab',
+                plural: ({ t }) => t('website:globals:GetStarted:get-started:plural'),
+                singular: ({ t }) => t('website:globals:GetStarted:get-started:singular'),
               },
             },
           ],
-          label: 'Tabs',
+          label: ({ t }) => t('website:globals:GetStarted:tabs:label'),
         },
         {
           fields: [
@@ -63,7 +64,7 @@ export const GetStarted: GlobalConfig = {
               admin: {
                 position: 'sidebar',
               },
-              label: 'Sidebar Content',
+              label: ({ t }) => t('website:globals:GetStarted:sidebar:label'),
             },
             linkGroup({
               appearances: false,
@@ -72,7 +73,7 @@ export const GetStarted: GlobalConfig = {
               },
             }),
           ],
-          label: 'Sidebar',
+          label: ({ t }) => t('website:globals:GetStarted:sidebarLinks:label'),
         },
       ],
     },

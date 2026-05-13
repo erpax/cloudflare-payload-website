@@ -20,19 +20,19 @@ export const Banner: Block = {
               defaultValue: 'default',
               options: [
                 {
-                  label: 'Default',
+                  label: ({ t }) => t('website:blocks:Banner:type:label'),
                   value: 'default',
                 },
                 {
-                  label: 'Success',
+                  label: ({ t }) => t('website:blocks:Banner:line27:label'),
                   value: 'success',
                 },
                 {
-                  label: 'Warning',
+                  label: ({ t }) => t('website:blocks:Banner:line31:label'),
                   value: 'warning',
                 },
                 {
-                  label: 'Error',
+                  label: ({ t }) => t('website:blocks:Banner:line35:label'),
                   value: 'error',
                 },
               ],

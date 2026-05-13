@@ -1,9 +1,13 @@
+/**
+ * Legacy path — Algolia has been replaced by D1 FTS. Kept so existing cron
+ * triggers and admin "sync" buttons keep working. Forwards to the D1 sync.
+ */
+
 import { NextResponse } from 'next/server'
 
-import syncToAlgolia from '../../../../scripts/syncToAlgolia'
+import syncToD1Search from '../../../../scripts/syncToD1Search'
 
 export async function GET(): Promise<NextResponse> {
-  await syncToAlgolia()
-
-  return NextResponse.json((JSON.stringify({ success: true }), { status: 200 }))
+  await syncToD1Search()
+  return NextResponse.json({ success: true }, { status: 200 })
 }

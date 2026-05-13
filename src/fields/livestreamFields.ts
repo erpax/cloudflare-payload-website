@@ -18,7 +18,7 @@ const livestreamFields: Field = {
         {
           name: 'id',
           type: 'text',
-          label: 'YouTube ID',
+          label: ({ t }) => t('website:fields:livestreamFields:id:label'),
         },
         {
           name: 'date',
@@ -28,7 +28,7 @@ const livestreamFields: Field = {
               pickerAppearance: 'dayAndTime',
             },
           },
-          label: 'Date / Time (GMT)',
+          label: ({ t }) => t('website:fields:livestreamFields:date:label'),
           required: true,
         },
       ],

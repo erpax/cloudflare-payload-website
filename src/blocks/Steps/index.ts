@@ -30,7 +30,7 @@ export const Steps: Block = {
   ],
   interfaceName: 'StepsBlock',
   labels: {
-    plural: 'Steps Blocks',
-    singular: 'Steps Block',
+    plural: ({ t }) => t('website:blocks:Steps:steps:plural'),
+    singular: ({ t }) => t('website:blocks:Steps:steps:singular'),
   },
 }
