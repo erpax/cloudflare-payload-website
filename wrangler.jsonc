@@ -65,22 +65,23 @@
   },
 
   // Default vars (public, safe to commit). Per-env overrides below.
-  // Optional features (Turnstile, Cloudflare Web Analytics) are not
-  // listed here — set NEXT_PUBLIC_TURNSTILE_SITE_KEY /
-  // NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN under
-  // Worker → Settings → Variables and Secrets when (and only when) you
-  // want them. The frontend code falls back to "not configured" mode
-  // when these are missing.
+  //
+  // Only worker-RUNTIME vars belong here — wrangler exposes each one as
+  // an editable input in the deploy wizard. Build-time flags
+  // (NEXT_TELEMETRY_DISABLED, WRANGLER_SEND_METRICS, DO_NOT_TRACK, …)
+  // live in `.env.example` / CI env instead, since they're consumed by
+  // Next/wrangler CLIs during the build, not by the running worker.
+  //
+  // Optional features (Turnstile, Cloudflare Web Analytics, etc.) are
+  // not listed here either — set them under
+  // Worker → Settings → Variables and Secrets when (and only when)
+  // you want them on. Each gated codepath falls back to "off" when its
+  // var is missing.
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "http://localhost:3000",
     "PAYLOAD_PUBLIC_APP_URL": "http://localhost:3000",
     "MAIL_FROM_ADDRESS": "info@payloadcms.com",
     "MAIL_FROM_NAME": "Payload",
-    // Telemetry opt-outs across the stack.
-    "NEXT_TELEMETRY_DISABLED": "1",
-    "PAYLOAD_DISABLE_TELEMETRY": "true",
-    "WRANGLER_SEND_METRICS": "false",
-    "DO_NOT_TRACK": "1",
   },
 
   // Per-environment overrides — deploy with `wrangler deploy --env=production`.

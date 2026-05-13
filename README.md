@@ -17,17 +17,19 @@ That's it. The site is live at your Workers URL.
 
 ### Optional integrations
 
-Each is **off** by default. Set the corresponding secret (Dashboard → Worker → Settings → Variables and Secrets → Encrypted) to turn it on; the related code path becomes inert when the secret is missing.
+Each is **off** by default. Set the corresponding variable after first deploy under **Dashboard → Worker → Settings → Variables and Secrets**. Public values go under "Plaintext"; private values go under "Encrypted". The related code path becomes inert when the variable is missing.
 
-| Feature | Secret to set |
-|---|---|
-| Transactional email (Resend) | `RESEND_API_KEY` (+ optional `RESEND_FROM_ADDRESS`, `RESEND_FROM_NAME`) |
-| Form submissions → HubSpot | `NEXT_PRIVATE_HUBSPOT_PORTAL_KEY` |
-| reCAPTCHA verification | `NEXT_PRIVATE_RECAPTCHA_SECRET_KEY` |
-| Admin "Redeploy" button | `VERCEL_REDEPLOY_URL` (despite the name, any HTTP webhook works — Cloudflare Workers Builds deploy hook, GitHub Actions `workflow_dispatch`, etc.) |
-| Docs sync from GitHub | `GITHUB_ACCESS_TOKEN`, `COMMIT_DOCS_API_URL`, `COMMIT_DOCS_API_KEY` |
-| Stripe (cloud-pricing) | `STRIPE_SECRET_KEY` (+ `STRIPE_WEBHOOK_SECRET` if you wire the webhook route) |
-| Discord community-help sync | `DISCORD_TOKEN` |
+| Feature | Variable(s) to set | Type |
+|---|---|---|
+| Cloudflare Turnstile (form CAPTCHAs) | `NEXT_PUBLIC_TURNSTILE_SITE_KEY`, `TURNSTILE_SECRET_KEY` | Plain / Encrypted |
+| Cloudflare Web Analytics | `NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN` | Plaintext |
+| Outbound mail (Cloudflare Email Workers) | `MAIL_FROM_ADDRESS`, `MAIL_FROM_NAME` — and verify a destination address in the dashboard under Email → Email Routing | Plaintext + dashboard |
+| Sentry error monitoring | `SENTRY_DSN` | Encrypted |
+| Form submissions → HubSpot | `NEXT_PRIVATE_HUBSPOT_PORTAL_KEY` | Encrypted |
+| Stripe (cloud-pricing) | `NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY` (+ `STRIPE_WEBHOOK_SECRET` if you wire the webhook route) | Plain / Encrypted |
+| Docs sync from GitHub | `GITHUB_ACCESS_TOKEN`, `COMMIT_DOCS_API_URL`, `COMMIT_DOCS_API_KEY` | Encrypted |
+| Discord community-help sync | `DISCORD_TOKEN` | Encrypted |
+| Admin "Redeploy" button | `VERCEL_REDEPLOY_URL` (despite the name, any HTTP webhook works — Cloudflare Workers Builds deploy hook, GitHub Actions `workflow_dispatch`, etc.) | Encrypted |
 
 Sync the wizard's `wrangler.jsonc` update back to your main repo so local CLI commands hit the same D1:
 
