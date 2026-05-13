@@ -79,6 +79,13 @@
     // Default "from" address for outbound mail via SEND_EMAIL.
     "MAIL_FROM_ADDRESS": "info@payloadcms.com",
     "MAIL_FROM_NAME": "Payload",
+    // Telemetry opt-outs across the stack — also honoured by every CLI
+    // run locally because they're set in payload.config (Payload) and
+    // applied as env vars at build time.
+    "NEXT_TELEMETRY_DISABLED": "1",
+    "PAYLOAD_DISABLE_TELEMETRY": "true",
+    "WRANGLER_SEND_METRICS": "false",
+    "DO_NOT_TRACK": "1",
   },
 
   // Per-environment overrides — deploy with `wrangler deploy --env=production`.

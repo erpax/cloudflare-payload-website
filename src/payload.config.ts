@@ -427,6 +427,9 @@ export default buildConfig(withShortEnums({
   graphQL: {
     disablePlaygroundInProduction: false,
   },
+  // Opt out of Payload's anonymous usage telemetry. Mirrored by the
+  // PAYLOAD_DISABLE_TELEMETRY env var (set in wrangler.jsonc vars).
+  telemetry: false,
   // Admin UI locales + plugin-namespace overrides. To discover missing
   // translation keys for any installed plugin, run
   // `pnpm sync-translations` — it prints empty-string stubs for any key a
