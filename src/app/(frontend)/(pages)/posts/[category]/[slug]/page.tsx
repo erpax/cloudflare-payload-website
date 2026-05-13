@@ -47,21 +47,26 @@ const PostPage = async ({
 export default PostPage
 
 export async function generateStaticParams() {
-  const getPosts = unstable_cache(fetchPosts, ['allPosts'])
-  const posts = await getPosts()
+  try {
+    const getPosts = unstable_cache(fetchPosts, ['allPosts'])
+    const posts = await getPosts()
 
-  return posts
-    .map(({ slug, category }) => {
-      if (!category || typeof category === 'string' || !category.slug) {
-        return null
-      }
+    return posts
+      .map(({ slug, category }) => {
+        if (!category || typeof category === 'string' || !category.slug) {
+          return null
+        }
 
-      return {
-        slug,
-        category: category.slug,
-      }
-    })
-    .filter(Boolean)
+        return {
+          slug,
+          category: category.slug,
+        }
+      })
+      .filter(Boolean)
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
 
 export async function generateMetadata({

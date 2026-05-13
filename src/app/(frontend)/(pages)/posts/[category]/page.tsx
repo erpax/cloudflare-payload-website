@@ -28,10 +28,15 @@ export default async ({
 }
 
 export const generateStaticParams = async () => {
-  const archives = await fetchArchives()
-  return archives.map((archive) => ({
-    category: archive.slug,
-  }))
+  try {
+    const archives = await fetchArchives()
+    return archives.map((archive) => ({
+      category: archive.slug,
+    }))
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
 
 export const generateMetadata = async ({ params }: { params: Promise<{ category: string }> }) => {

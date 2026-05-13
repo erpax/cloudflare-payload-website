@@ -44,12 +44,17 @@ const Page = async ({
 export default Page
 
 export async function generateStaticParams() {
-  const getPages = unstable_cache(fetchPages, ['pages'])
-  const pages = await getPages()
+  try {
+    const getPages = unstable_cache(fetchPages, ['pages'])
+    const pages = await getPages()
 
-  return pages.map(({ breadcrumbs }) => ({
-    slug: breadcrumbs?.[breadcrumbs.length - 1]?.url?.replace(/^\/|\/$/g, '').split('/'),
-  }))
+    return pages.map(({ breadcrumbs }) => ({
+      slug: breadcrumbs?.[breadcrumbs.length - 1]?.url?.replace(/^\/|\/$/g, '').split('/'),
+    }))
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
 
 export async function generateMetadata({

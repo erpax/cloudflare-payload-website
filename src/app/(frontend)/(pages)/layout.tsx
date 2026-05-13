@@ -13,7 +13,20 @@ export default async function Layout({ children }: { children: React.ReactNode }
     ? fetchGlobals
     : unstable_cache(fetchGlobals, ['globals', 'mainMenu', 'footer'])
 
-  const { footer, mainMenu, topBar } = await getGlobals()
+  // Tolerate an empty/uninitialized D1 (e.g. before migrations run during the
+  // first Cloudflare Pages build). Header/Footer accept the missing fields
+  // gracefully via spread, so we fall back to empty globals on error.
+  let footer: any = {}
+  let mainMenu: any = {}
+  let topBar: any = undefined
+  try {
+    const globals = await getGlobals()
+    footer = globals.footer
+    mainMenu = globals.mainMenu
+    topBar = globals.topBar
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+  }
 
   return (
     <React.Fragment>

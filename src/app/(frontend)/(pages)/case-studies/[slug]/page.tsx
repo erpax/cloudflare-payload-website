@@ -38,12 +38,17 @@ const CaseStudyBySlug = async ({ params }) => {
 export default CaseStudyBySlug
 
 export async function generateStaticParams() {
-  const getCaseStudies = unstable_cache(fetchCaseStudies, ['caseStudies'])
-  const caseStudies = await getCaseStudies()
+  try {
+    const getCaseStudies = unstable_cache(fetchCaseStudies, ['caseStudies'])
+    const caseStudies = await getCaseStudies()
 
-  return caseStudies.map(({ slug }) => ({
-    slug,
-  }))
+    return caseStudies.map(({ slug }) => ({
+      slug,
+    }))
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
 
 export async function generateMetadata({

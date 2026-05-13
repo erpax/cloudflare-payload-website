@@ -121,31 +121,36 @@ export async function generateStaticParams(): Promise<Params[]> {
     return []
   }
 
-  const payload = await getPayload({ config })
-  const docs = await payload.find({
-    collection: 'docs',
-    depth: 0,
-    limit: 10000,
-    pagination: false,
-    select: {
-      slug: true,
-      topic: true,
-    },
-    where: {
-      version: {
-        equals: 'v2',
+  try {
+    const payload = await getPayload({ config })
+    const docs = await payload.find({
+      collection: 'docs',
+      depth: 0,
+      limit: 10000,
+      pagination: false,
+      select: {
+        slug: true,
+        topic: true,
       },
-    },
-  })
-
-  const result: Params[] = []
-
-  for (const doc of docs.docs) {
-    result.push({
-      doc: doc.slug.replace('.mdx', ''),
-      topic: doc.topic.toLowerCase(),
+      where: {
+        version: {
+          equals: 'v2',
+        },
+      },
     })
-  }
 
-  return result
+    const result: Params[] = []
+
+    for (const doc of docs.docs) {
+      result.push({
+        doc: doc.slug.replace('.mdx', ''),
+        topic: doc.topic.toLowerCase(),
+      })
+    }
+
+    return result
+  } catch (error) {
+    console.error(error) // eslint-disable-line no-console
+    return []
+  }
 }
