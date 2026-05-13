@@ -75,7 +75,15 @@ run "generate:types" pnpm generate:types
 
 step "Pending Payload migrations"
 note "creates src/migrations/<ts>_<name>.ts if the schema has drifted"
-if pnpm exec payload migrate:create >/dev/null 2>&1; then
+# --skip-empty   → no-op when the schema is in sync (don't create blank migration files)
+# --force-accept-warning → don't pause on the destructive-change confirmation prompt
+# --name auto    → use the default timestamp+slug name instead of asking
+if pnpm exec payload migrate:create \
+  --skip-empty \
+  --force-accept-warning \
+  --name auto \
+  >/dev/null 2>&1
+then
   done_ "migrate:create"
 else
   warn "migrate:create exited non-zero — re-run interactively if needed"
