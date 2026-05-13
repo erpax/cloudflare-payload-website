@@ -25,11 +25,14 @@
       "database_id": "",
       "database_name": "payload-website",
       "migrations_dir": "src/migrations",
-      // `remote: true` matches templates/with-cloudflare-d1 — wrangler's
-      // getPlatformProxy will always resolve to the remote D1 when
-      // NODE_ENV=production, so `pnpm deploy:database` migrates the live
-      // database. Local dev still hits Miniflare's in-memory D1.
-      "remote": true,
+      // NOTE: do NOT set `remote: true` here while `database_id` is empty —
+      // wrangler then demands a real id even for local builds and fails
+      // with `binding D1 of type d1 must have a database_id specified
+      // [code: 10021]`. Production migrate still hits remote D1 because
+      // `payload.config.ts` passes `remoteBindings: NODE_ENV==='production'`
+      // to getPlatformProxy, independent of this flag.
+      // Once the deploy wizard fills `database_id`, you can add
+      // `"remote": true` to make wrangler dev/preview also use remote.
     },
   ],
 
