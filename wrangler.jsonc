@@ -25,6 +25,11 @@
       "database_id": "",
       "database_name": "payload-website",
       "migrations_dir": "src/migrations",
+      // `remote: true` matches templates/with-cloudflare-d1 — wrangler's
+      // getPlatformProxy will always resolve to the remote D1 when
+      // NODE_ENV=production, so `pnpm deploy:database` migrates the live
+      // database. Local dev still hits Miniflare's in-memory D1.
+      "remote": true,
     },
   ],
 
