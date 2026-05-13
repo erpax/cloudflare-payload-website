@@ -157,10 +157,37 @@
   "cloudflare": {
     "bindings": {
       "PAYLOAD_SECRET": {
-        "description": "Random string for Payload to sign cookies/JWTs. Generate with `openssl rand -hex 32`."
+        "description": "Required. Random string used to sign cookies/JWTs. Generate with `openssl rand -hex 32`."
       },
       "TURNSTILE_SECRET_KEY": {
-        "description": "Cloudflare Turnstile secret (pairs with NEXT_PUBLIC_TURNSTILE_SITE_KEY)."
+        "description": "Optional. Server-side key for Cloudflare Turnstile form CAPTCHAs. Leave blank to disable. Pair with the public NEXT_PUBLIC_TURNSTILE_SITE_KEY var."
+      },
+      "NEXT_PUBLIC_TURNSTILE_SITE_KEY": {
+        "description": "Optional. Public site key for Cloudflare Turnstile (visible to browsers). Leave blank to disable."
+      },
+      "NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN": {
+        "description": "Optional. Beacon token from Cloudflare Web Analytics dashboard. Leave blank to disable analytics."
+      },
+      "STRIPE_SECRET_KEY": {
+        "description": "Optional. Stripe API secret (server-side). Leave blank if Stripe routes aren't used."
+      },
+      "NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY": {
+        "description": "Optional. Stripe publishable key (browser-side). Leave blank if Stripe routes aren't used."
+      },
+      "GITHUB_ACCESS_TOKEN": {
+        "description": "Optional. Personal access token used by docs/release-post sync. Leave blank to disable."
+      },
+      "NEXT_PRIVATE_HUBSPOT_PORTAL_KEY": {
+        "description": "Optional. Forwards form submissions to HubSpot. Leave blank to disable."
+      },
+      "DISCORD_TOKEN": {
+        "description": "Optional. Bot token used to sync community-help threads. Leave blank to disable."
+      },
+      "SENTRY_DSN": {
+        "description": "Optional. Enables @payloadcms/plugin-sentry. Leave blank to disable error reporting."
+      },
+      "VERCEL_REDEPLOY_URL": {
+        "description": "Optional. Webhook hit by the admin 'Redeploy' button (any HTTP webhook works — Cloudflare Workers Builds deploy hook, GitHub Actions, etc.). Leave blank to hide the button."
       }
     }
   }

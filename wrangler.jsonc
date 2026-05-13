@@ -65,19 +65,18 @@
   },
 
   // Default vars (public, safe to commit). Per-env overrides below.
+  // Optional features (Turnstile, Cloudflare Web Analytics) are not
+  // listed here — set NEXT_PUBLIC_TURNSTILE_SITE_KEY /
+  // NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN under
+  // Worker → Settings → Variables and Secrets when (and only when) you
+  // want them. The frontend code falls back to "not configured" mode
+  // when these are missing.
   "vars": {
     "NEXT_PUBLIC_SITE_URL": "http://localhost:3000",
     "PAYLOAD_PUBLIC_APP_URL": "http://localhost:3000",
-    // Turnstile public site key (set in the Cloudflare dashboard; safe to commit).
-    "NEXT_PUBLIC_TURNSTILE_SITE_KEY": "",
-    // Cloudflare Web Analytics beacon token (replaces GA + FB Pixel).
-    "NEXT_PUBLIC_CF_WEB_ANALYTICS_TOKEN": "",
-    // Default "from" address for outbound mail via SEND_EMAIL.
     "MAIL_FROM_ADDRESS": "info@payloadcms.com",
     "MAIL_FROM_NAME": "Payload",
-    // Telemetry opt-outs across the stack — also honoured by every CLI
-    // run locally because they're set in payload.config (Payload) and
-    // applied as env vars at build time.
+    // Telemetry opt-outs across the stack.
     "NEXT_TELEMETRY_DISABLED": "1",
     "PAYLOAD_DISABLE_TELEMETRY": "true",
     "WRANGLER_SEND_METRICS": "false",
