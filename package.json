@@ -99,9 +99,9 @@
     "cli-progress": "^3.12.0",
     "discord.js": "^14.26.4",
     "dotenv": "^17.4.2",
-    "eslint": "10.3.0",
+    "eslint": "9.36.0",
     "prettier": "3.8.3",
-    "typescript": "6.0.3",
+    "typescript": "5.8.3",
     "wrangler": "^4.90.1"
   },
   "pnpm": {
