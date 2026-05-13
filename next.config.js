@@ -110,10 +110,17 @@ const nextConfig = withBundleAnalyzer({
         hostname: 'img.youtube.com',
         port: '',
       },
-      {
-        protocol: 'https',
-        hostname: process.env.BLOB_STORE_ID,
-      },
+      // Vercel Blob hostname — only included when BLOB_STORE_ID is set.
+      // Next 16 rejects entries with an undefined hostname; drop the whole
+      // entry rather than passing through the falsy field.
+      ...(process.env.BLOB_STORE_ID
+        ? [
+            {
+              protocol: 'https',
+              hostname: process.env.BLOB_STORE_ID,
+            },
+          ]
+        : []),
     ].filter(Boolean),
   },
   sassOptions: {
