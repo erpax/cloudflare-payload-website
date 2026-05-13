@@ -22,17 +22,13 @@
   "d1_databases": [
     {
       "binding": "D1",
-      "database_id": "",
+      // Placeholder — the Cloudflare deploy wizard fills this on fork
+      // (matches templates/with-cloudflare-d1). For local CLI deploys,
+      // `wrangler d1 create payload-website` and paste the printed id here.
+      "database_id": "DATABASE_ID",
       "database_name": "payload-website",
       "migrations_dir": "src/migrations",
-      // NOTE: do NOT set `remote: true` here while `database_id` is empty —
-      // wrangler then demands a real id even for local builds and fails
-      // with `binding D1 of type d1 must have a database_id specified
-      // [code: 10021]`. Production migrate still hits remote D1 because
-      // `payload.config.ts` passes `remoteBindings: NODE_ENV==='production'`
-      // to getPlatformProxy, independent of this flag.
-      // Once the deploy wizard fills `database_id`, you can add
-      // `"remote": true` to make wrangler dev/preview also use remote.
+      "remote": true,
     },
   ],
 
